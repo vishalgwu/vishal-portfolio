@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vishal Fulsundar - AI/ML Engineer | Multi-Agent Systems & Production LLMs | GWU">
+    <title>Vishal Fulsundar | AI/ML Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --text-light: #eaeaea;
+            --text-muted: #b0b0b0;
+            --card-bg: #1f2937;
+            --border: #374151;
+            --success: #10b981;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--primary);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 0.8rem 0;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--highlight);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--highlight);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--highlight);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            color: var(--highlight);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--text-light) 0%, var(--highlight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .hero-tagline {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--highlight);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d63151;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(233, 69, 96, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--text-light);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--highlight);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .about-text p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--card-bg);
+            border-left: 4px solid var(--highlight);
+            border-radius: 4px;
+        }
+
+        .highlight-item strong {
+            color: var(--highlight);
+            min-width: 150px;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border-top: 4px solid var(--highlight);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .skill-category {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--highlight);
+            margin-bottom: 1rem;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            background: var(--accent);
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--highlight);
+            box-shadow: 0 20px 50px rgba(233, 69, 96, 0.15);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            padding: 2rem;
+            border-bottom: 2px solid var(--highlight);
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .project-role {
+            font-size: 0.85rem;
+            color: var(--highlight);
+            font-weight: 600;
+        }
+
+        .project-body {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-description {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .project-metrics {
+            background: var(--accent);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--highlight);
+        }
+
+        .metric {
+            color: var(--success);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .project-tech {
+            margin-top: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .tech-item {
+            background: rgba(233, 69, 96, 0.1);
+            color: var(--highlight);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-link {
+            color: var(--highlight);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 0.8rem;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-item {
+            margin-bottom: 3rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--highlight);
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+        }
+
+        .experience-item::after {
+            content: '';
+            position: absolute;
+            left: -1.35rem;
+            top: 12px;
+            width: 2px;
+            height: calc(100% + 1rem);
+            background: var(--border);
+        }
+
+        .experience-item:last-child::after {
+            display: none;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .exp-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .exp-company {
+            font-size: 1rem;
+            color: var(--highlight);
+            font-weight: 600;
+        }
+
+        .exp-date {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .exp-description {
+            color: var(--text-muted);
+            margin-top: 0.8rem;
+            line-height: 1.7;
+        }
+
+        .exp-bullet {
+            margin-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Research Section */
+        .research-item {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--highlight);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .research-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .research-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .research-meta {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .research-content {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .research-bullets {
+            list-style: none;
+            margin-top: 1rem;
+            padding-left: 1rem;
+        }
+
+        .research-bullets li {
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .research-bullets li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--highlight);
+            font-weight: 700;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 1rem 1.5rem;
+            background: var(--card-bg);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .contact-link:hover {
+            background: var(--highlight);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(233, 69, 96, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            nav {
+                padding: 0 1rem;
+            }
+
+            .hero::before {
+                width: 300px;
+                height: 300px;
+            }
+
+            .exp-header {
+                flex-direction: column;
+            }
+        }
+
+        /* Dark Mode Toggle (when implemented) */
+        body.light-mode {
+            --primary: #f5f5f5;
+            --secondary: #ffffff;
+            --text-light: #1a1a2e;
+            --text-muted: #666666;
+            --card-bg: #e9ecef;
+            --border: #dee2e6;
+        }
+
+        body.light-mode header {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        body.light-mode .skill-tag {
+            background: #e3f2fd;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <nav>
+            <a href="#home" class="logo">VF</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">🌙</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Vishal Fulsundar</h1>
+            <p class="hero-subtitle">AI/ML Engineer | Multi-Agent Systems & Production LLMs</p>
+            <p class="hero-tagline">I build production-grade generative AI systems that scale. Multi-agent orchestration, RAG pipelines, LLM reliability, and inference optimization.</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                <a href="https://github.com/vishalgwu" class="btn btn-secondary" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Building AI Systems That Work in Production</h2>
+                    <p>I'm pursuing an MS in Data Science at George Washington University (GPA 3.81) while serving as a Graduate Teaching Assistant, where I design distributed systems curricula and mentor capstone projects.</p>
+                    <p>My focus is on systems that balance cutting-edge AI capabilities with real-world constraints: sub-500ms latency, 99.9% uptime, token efficiency, and hallucination mitigation. I combine academic rigor (published NLP research, active LLM research) with production mindset (deployment, monitoring, optimization).</p>
+                    <p>Previously, I founded a B2C SaaS startup (200+ retail partners, 10K customers) and shipped production ML at XampusAI, where I engineered a recommendation system serving 21M student profiles and driving 17% conversion lift.</p>
+                </div>
+                <div class="about-highlights">
+                    <div class="highlight-item">
+                        <strong>Focus:</strong>
+                        <span>Production LLM systems, multi-agent orchestration, RAG architecture, inference optimization</span>
+                    </div>
+                    <div class="highlight-item">
+                        <strong>Expertise:</strong>
+                        <span>LangChain, LangGraph, FastAPI, AWS (Lambda, Bedrock, EC2), Vector DBs, PyTorch</span>
+                    </div>
+                    <div class="highlight-item">
+                        <strong>Current Role:</strong>
+                        <span>Graduate Teaching Assistant @ GWU (Distributed Systems, ETL, Data Warehousing)</span>
+                    </div>
+                    <div class="highlight-item">
+                        <strong>Edge:</strong>
+                        <span>Systems thinking + empirical rigor. Not just fine-tuning—optimizing for latency, cost, and reliability</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-category">🤖 ML & GenAI</div>
+                    <div class="skill-list">
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">LangChain</span>
+                        <span class="skill-tag">LangGraph</span>
+                        <span class="skill-tag">LlamaIndex</span>
+                        <span class="skill-tag">RAG</span>
+                        <span class="skill-tag">FAISS</span>
+                        <span class="skill-tag">Fine-tuning</span>
+                        <span class="skill-tag">XGBoost</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-category">☁️ Cloud & Deployment</div>
+                    <div class="skill-list">
+                        <span class="skill-tag">AWS Lambda</span>
+                        <span class="skill-tag">AWS Bedrock</span>
+                        <span class="skill-tag">EC2</span>
+                        <span class="skill-tag">S3</span>
+                        <span class="skill-tag">API Gateway</span>
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Streamlit</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-category">🗄️ Data Engineering</div>
+                    <div class="skill-list">
+                        <span class="skill-tag">PySpark</span>
+                        <span class="skill-tag">Hadoop</span>
+                        <span class="skill-tag">ETL Pipelines</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Qdrant</span>
+                        <span class="skill-tag">Neo4j</span>
+                        <span class="skill-tag">MLflow</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-category">📊 Analytics & Visualization</div>
+                    <div class="skill-list">
+                        <span class="skill-tag">Tableau</span>
+                        <span class="skill-tag">Power BI</span>
+                        <span class="skill-tag">Matplotlib</span>
+                        <span class="skill-tag">Seaborn</span>
+                        <span class="skill-tag">Plotly</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Git</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-category">🔬 Research & Specializations</div>
+                    <div class="skill-list">
+                        <span class="skill-tag">LLM Research</span>
+                        <span class="skill-tag">NLP</span>
+                        <span class="skill-tag">Multi-Agent Systems</span>
+                        <span class="skill-tag">Prompt Engineering</span>
+                        <span class="skill-tag">A/B Testing</span>
+                        <span class="skill-tag">Causal Inference</span>
+                        <span class="skill-tag">CNN/RNN/LSTM</span>
+                        <span class="skill-tag">Grad-CAM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <!-- WillDocs Project -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-title">WillDocs</div>
+                        <div class="project-role">Production Multi-Agent RAG Pipeline</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Production-grade multi-agent system for semantic search over 1000+ document corpus. Optimized retrieval efficiency via prompt compression achieving 91% top-k accuracy with sub-500ms latency.
+                        </p>
+                        <div class="project-metrics">
+                            <div class="metric">✓ 23% token reduction via compression</div>
+                            <div class="metric">✓ 91% retrieval accuracy @ top-k</div>
+                            <div class="metric">✓ 0.45s median latency</div>
+                            <div class="metric">✓ 99.9% uptime, 10K+ queries/month</div>
+                        </div>
+                        <div class="project-tech">
+                            <div class="tech-label">Tech Stack</div>
+                            <div class="tech-stack">
+                                <span class="tech-item">LangChain</span>
+                                <span class="tech-item">LlamaIndex</span>
+                                <span class="tech-item">Qdrant</span>
+                                <span class="tech-item">FastAPI</span>
+                                <span class="tech-item">Docker</span>
+                            </div>
+                        </div>
+                        <a href="https://github.com/vishalgwu" class="project-link" target="_blank">View on GitHub →</a>
+                    </div>
+                </div>
+
+                <!-- NBA GPT Assistant Project -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-title">NBA GPT Assistant</div>
+                        <div class="project-role">Serverless Chatbot at Scale</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Serverless NBA statistics chatbot with real-time data refresh. Processes 20 years of player-game records with nightly ETL pipeline, achieving 55% query latency reduction.
+                        </p>
+                        <div class="project-metrics">
+                            <div class="metric">✓ 55% latency reduction (4.2s → 1.9s)</div>
+                            <div class="metric">✓ Nightly automated data refresh</div>
+                            <div class="metric">✓ 20 years of player records indexed</div>
+                            <div class="metric">✓ Serverless cost optimization</div>
+                        </div>
+                        <div class="project-tech">
+                            <div class="tech-label">Tech Stack</div>
+                            <div class="tech-stack">
+                                <span class="tech-item">AWS Lambda</span>
+                                <span class="tech-item">Bedrock</span>
+                                <span class="tech-item">PySpark</span>
+                                <span class="tech-item">Streamlit</span>
+                                <span class="tech-item">API Gateway</span>
+                            </div>
+                        </div>
+                        <a href="https://github.com/vishalgwu" class="project-link" target="_blank">View on GitHub →</a>
+                    </div>
+                </div>
+
+                <!-- Trading Agent Project -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-title">Trading Agent</div>
+                        <div class="project-role">Multi-Agent LLM System</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Autonomous multi-agent trading system orchestrating specialized agents for market analysis, risk assessment, and execution. Demonstrates complex agent coordination and decision-making.
+                        </p>
+                        <div class="project-metrics">
+                            <div class="metric">✓ Multi-agent orchestration</div>
+                            <div class="metric">✓ Real-time financial data integration</div>
+                            <div class="metric">✓ Risk management constraints</div>
+                            <div class="metric">✓ Autonomous decision-making</div>
+                        </div>
+                        <div class="project-tech">
+                            <div class="tech-label">Tech Stack</div>
+                            <div class="tech-stack">
+                                <span class="tech-item">LangGraph</span>
+                                <span class="tech-item">LangChain</span>
+                                <span class="tech-item">Python</span>
+                            </div>
+                        </div>
+                        <a href="https://github.com/vishalgwu" class="project-link" target="_blank">View on GitHub →</a>
+                    </div>
+                </div>
+
+                <!-- Recommendation Engine Project -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-title">Recommendation Engine</div>
+                        <div class="project-role">XampusAI | ML Product Impact</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Engineered TF-IDF + dense vector recommendation system over 21M student profiles. A/B tested with 50K users, delivering direct revenue impact through improved conversion.
+                        </p>
+                        <div class="project-metrics">
+                            <div class="metric">✓ 17% subscription lift (95% CI: 12-22%)</div>
+                            <div class="metric">✓ Precision@10: 0.92</div>
+                            <div class="metric">✓ 82% higher session engagement</div>
+                            <div class="metric">✓ ~$50K annual revenue impact</div>
+                        </div>
+                        <div class="project-tech">
+                            <div class="tech-label">Tech Stack</div>
+                            <div class="tech-stack">
+                                <span class="tech-item">TF-IDF</span>
+                                <span class="tech-item">Vector Similarity</span>
+                                <span class="tech-item">A/B Testing</span>
+                                <span class="tech-item">Python</span>
+                            </div>
+                        </div>
+                        <a href="#" class="project-link">Production System</a>
+                    </div>
+                </div>
+
+                <!-- World Bank Hackathon Project -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-title">World Bank Hackathon</div>
+                        <div class="project-role">Data Science Competition</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Job prediction model trained on 12M employment records. Engineered features capturing skill-job compatibility and labor market dynamics, achieving 15% accuracy improvement over baseline.
+                        </p>
+                        <div class="project-metrics">
+                            <div class="metric">✓ 15% accuracy improvement</div>
+                            <div class="metric">✓ 12M+ record dataset</div>
+                            <div class="metric">✓ Advanced feature engineering</div>
+                            <div class="metric">✓ Production-ready pipeline</div>
+                        </div>
+                        <div class="project-tech">
+                            <div class="tech-label">Tech Stack</div>
+                            <div class="tech-stack">
+                                <span class="tech-item">PySpark</span>
+                                <span class="tech-item">XGBoost</span>
+                                <span class="tech-item">Python</span>
+                            </div>
+                        </div>
+                        <a href="https://github.com/vishalgwu" class="project-link" target="_blank">View on GitHub →</a>
+                    </div>
+                </div>
+
+                <!-- Image Caption Generator -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-title">Image Caption Generator</div>
+                        <div class="project-role">Deep Learning | Vision</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            On-brand fashion caption generation from product images. Combines computer vision with NLP to produce contextually relevant, brand-aligned descriptions automatically.
+                        </p>
+                        <div class="project-metrics">
+                            <div class="metric">✓ Vision-language integration</div>
+                            <div class="metric">✓ Brand consistency maintained</div>
+                            <div class="metric">✓ Automated content generation</div>
+                            <div class="metric">✓ Transformer architecture</div>
+                        </div>
+                        <div class="project-tech">
+                            <div class="tech-label">Tech Stack</div>
+                            <div class="tech-stack">
+                                <span class="tech-item">PyTorch</span>
+                                <span class="tech-item">Transformers</span>
+                                <span class="tech-item">Python</span>
+                            </div>
+                        </div>
+                        <a href="https://github.com/vishalgwu" class="project-link" target="_blank">View on GitHub →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <div class="experience-timeline">
+                <!-- GWU Teaching Assistant -->
+                <div class="experience-item">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-title">Graduate Teaching Assistant</div>
+                            <div class="exp-company">The George Washington University</div>
+                        </div>
+                        <div class="exp-date">Jan 2026 - Present</div>
+                    </div>
+                    <div class="exp-description">
+                        <p>Technical leadership at scale teaching 40+ graduate students:</p>
+                        <div class="exp-bullet">→ Designed and delivered lectures on distributed systems, PySpark, and ETL optimization</div>
+                        <div class="exp-bullet">→ Architected AWS Redshift data warehouse for course projects; migrated legacy Excel datasets to cloud infrastructure</div>
+                        <div class="exp-bullet">→ Implemented ETL workflows (AWS EventBridge, Lambda) reducing manual reporting by 80%</div>
+                        <div class="exp-bullet">→ Mentored 15+ capstone projects with emphasis on reliability, scalability, operational excellence</div>
+                    </div>
+                </div>
+
+                <!-- XampusAI Data Scientist -->
+                <div class="experience-item">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-title">Data Scientist</div>
+                            <div class="exp-company">XampusAI</div>
+                        </div>
+                        <div class="exp-date">Apr 2023 - Aug 2024</div>
+                    </div>
+                    <div class="exp-description">
+                        <p>Engineered ML systems driving 17% subscription lift and $50K ARR impact:</p>
+                        <div class="exp-bullet">→ Built recommendation engine over 21M profiles with TF-IDF + dense vectors (Precision@10: 0.92)</div>
+                        <div class="exp-bullet">→ A/B tested with 50K users: 17% conversion lift (95% CI: 12-22%), 82% engagement increase</div>
+                        <div class="exp-bullet">→ Engineered 50+ features with automated validation, reducing bugs by 85%</div>
+                        <div class="exp-bullet">→ Built 12 production Tableau/Power BI dashboards; identified $5K/month low-ROI spend, decreased CAC by 30%</div>
+                        <div class="exp-bullet">→ Led 4 engineers through rapid prototyping to production launch</div>
+                    </div>
+                </div>
+
+                <!-- Stoffer Co-Founder -->
+                <div class="experience-item">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-title">Co-Founder & Product Lead</div>
+                            <div class="exp-company">Stoffer</div>
+                        </div>
+                        <div class="exp-date">Mar 2020 - Jun 2022</div>
+                    </div>
+                    <div class="exp-description">
+                        <p>Founded B2C SaaS platform connecting retailers with regional customers:</p>
+                        <div class="exp-bullet">→ Raised $10K seed funding; scaled to 200+ retail partners and 10K+ active customers</div>
+                        <div class="exp-bullet">→ Achieved 40% MoM growth via 50+ customer interviews and MVP launch in 8 weeks</div>
+                        <div class="exp-bullet">→ Used cohort analysis and churn curves to identify market inflection points</div>
+                        <div class="exp-bullet">→ Made data-driven exit decision based on sensitivity analysis and funding requirements</div>
+                    </div>
+                </div>
+
+                <!-- Trainity Data Analyst -->
+                <div class="experience-item">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-title">Data Analyst Intern</div>
+                            <div class="exp-company">Trainity</div>
+                        </div>
+                        <div class="exp-date">Feb 2023 - Apr 2023</div>
+                    </div>
+                    <div class="exp-description">
+                        <p>Analyzed customer support operations to optimize resource allocation:</p>
+                        <div class="exp-bullet">→ Reduced call abandonment rate from 30% to 10% through data-driven agent scheduling</div>
+                        <div class="exp-bullet">→ Identified peak call patterns and optimized staffing for 9 AM-1 PM window</div>
+                        <div class="exp-bullet">→ Proposed night shift coverage plan to manage 30% of after-hours calls</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research">
+        <div class="container">
+            <h2 class="section-title">Research & Publications</h2>
+            
+            <div class="research-item">
+                <div class="research-title">Token Influence and Temperature Effects in LLM Responses</div>
+                <div class="research-meta">In Progress (Sep 2025 - Present)</div>
+                <div class="research-content">
+                    Investigating nonlinear dynamics of LLM outputs using Neuronpedia. Discovered bifurcation patterns that mirror logistic-map period-doubling behavior.
+                    <ul class="research-bullets">
+                        <li>Proved LLM outputs collapse into 2-cycle attractors at low temperature</li>
+                        <li>Mapped stable token-interaction patterns equivalent to human concept formation via layer-wise attractor dynamics</li>
+                        <li>Built framework measuring how RAG shifts cluster stability across GPT-4, LLaMA-2, Qwen</li>
+                        <li>Implications for production chatbots and code generation reliability</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="research-item">
+                <div class="research-title">Text Summarization in NLP</div>
+                <div class="research-meta">Published in JETIR, Vol. 10 (Oct 2023)</div>
+                <div class="research-content">
+                    Comparative analysis of extractive vs. abstractive summarization approaches using transformer models on BBC News dataset. Evaluated performance, efficiency, and real-world applicability.
+                </div>
+            </div>
+
+            <div class="highlight-item" style="margin-top: 2rem;">
+                <strong>Certifications:</strong>
+                <span>IBM Python for Data Science • PwC Power BI Job Simulation • Data Analytics Specialization (Tableau)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <p>I'm always interested in discussing AI systems, multi-agent architectures, production LLMs, and startup challenges. Let's connect.</p>
+                <div class="contact-links">
+                    <a href="mailto:vishalfulsundar2017@gmail.com" class="contact-link">
+                        <span>✉️</span>
+                        <span>Email</span>
+                    </a>
+                    <a href="https://linkedin.com/in/vishalfulsundar" class="contact-link" target="_blank">
+                        <span>💼</span>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/vishalgwu" class="contact-link" target="_blank">
+                        <span>💻</span>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="tel:5714733549" class="contact-link">
+                        <span>📱</span>
+                        <span>Phone</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Vishal Fulsundar. All rights reserved. | <a href="#home" style="color: var(--highlight); text-decoration: none;">Back to Top</a></p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Dark/Light mode toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+        // Check for saved theme preference or default to dark
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            document.body.classList.add('light-mode');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+            themeToggle.textContent = theme === 'light' ? '☀️' : '🌙';
+        });
+
+        // Add scroll animation for elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease-out';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, .skill-card, .research-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
