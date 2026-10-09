@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vishal Fulsundar: Cinematic Portfolio
 
-## Getting Started
+A Netflix-style, dark "Cyber-Obsidian" portfolio for AI systems and data science projects, built with Next.js 14 (App Router), Tailwind CSS, Framer Motion and Lucide icons.
 
-First, run the development server:
+**Live:** https://vishalgwu.github.io/vishal-portfolio/
+
+## What's inside
+
+- **Hero** with ambient neon aura, particle canvas background and a terminal typewriter of the real tech stack.
+- **Recruiter 60-Second Snapshot**: a drawer with core competencies, headline metrics, architecture mastery, background and one-click contact (with a countdown bar).
+- **Five Netflix-style rows**: Featured Flagship Systems, Agentic AI / RAG / LLM Infrastructure, Big Data & Analytics, Deep Learning / CV / NLP, Production Microservices & Tools.
+- **Poster cards** with 3D tilt, `scale-105` hover, neon glow and a fading description preview.
+- **Project modal** with a shared-layout transition: overview, metrics, ASCII architecture diagram, engineering challenges, tech pills and repo / demo links.
+- **Search** across titles and tech stack, and a printable **/resume** page (Save as PDF).
+
+## Data
+
+All 24 projects live in [`data/projects.json`](data/projects.json), audited from the public repositories of [@vishalgwu](https://github.com/vishalgwu). Every metric is copied from the project's own README. Figures a README labels as targets or provisional (for example GuardMem's AUROC) are labelled that way here too. To add a project, append an object with the same shape and list the row ids it belongs to in `categories`.
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run lint
+npm run build    # static export to ./out
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The site is a static export. When served from a sub-path (GitHub Pages), set `NEXT_PUBLIC_BASE_PATH=/vishal-portfolio` before building; the included workflow does this on every push to `main`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Layout
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/               layout, home page, /resume
+components/        Hero, Navbar, ProjectRow, ProjectCard, ProjectModal, RecruiterMode, BackgroundGlow
+data/projects.json audited project dataset
+lib/               types, data helpers, profile, cn()
+```

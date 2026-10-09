@@ -1,0 +1,637 @@
+[
+  {
+    "slug": "guardmem",
+    "title": "GuardMem AI",
+    "tagline": "A memory governance gateway for long-running AI agents",
+    "overview": "Every candidate fact an agent wants to remember is intercepted before it becomes durable state. GuardMem extracts structured claims anchored to verbatim source spans, validates them against a tenant ontology, scores confidence and blast-radius risk on separate axes, and then auto-writes, queues for human review, rejects, or escalates. Every decision lands in a hash-chained audit log.",
+    "categories": ["featured", "agentic"],
+    "accent": "violet",
+    "repo": "https://github.com/vishalgwu/HGEM",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-09-28",
+    "status": "In active build",
+    "stack": ["Python 3.12", "FastAPI", "MCP", "PostgreSQL", "Row-Level Security", "Alembic", "NLI", "Presidio", "Docker", "GitHub Actions"],
+    "metrics": [
+      { "label": "Pipeline layers", "value": "3 + decision" },
+      { "label": "Checkpoint B corpus", "value": "238 candidates" },
+      { "label": "Provisional AUROC", "value": "0.643" },
+      { "label": "Surfaces", "value": "MCP + REST + worker" }
+    ],
+    "challenges": [
+      "Stopping confabulation at the door: no verbatim source span, no write.",
+      "Separating confidence (semantic entropy over meaning clusters) from impact risk (blast radius) so a confident write to a high-stakes field still escalates.",
+      "Fail-closed degradation: provider outage, budget cap or injection detection all route toward human review and never widen the auto-write path.",
+      "Never deleting beliefs: supersession plus tombstones with bitemporal columns make 'what did the agent believe on date X' a normal query."
+    ],
+    "architecture": "raw turns\n   |\n   v\n[L1 EXTRACTION]  noise -> candidates + verbatim spans\n   |\n   v\n[L2 VALIDATION]  ontology | NLI contradiction | cardinality | temporal overlap\n   |\n   v\n[L3 SCORING]     C (semantic entropy)   R (blast radius)\n   |\n   v\n[DECISION] --> AUTO_WRITE | HITL_REVIEW | REJECT | ESCALATE\n   |\n   v\nPostgres txn + hash-chained audit events"
+  },
+  {
+    "slug": "resident-os",
+    "title": "Resident OS",
+    "tagline": "AI operations layer for apartment communities, starting with maintenance",
+    "overview": "A resident report becomes a safe, cited, policy-checked, human-reviewable dispatch decision with an immutable audit trail. It sits alongside property-management systems such as Yardi and Entrata. The model proposes; deterministic code validates and authorises, and only the orchestrator holds side-effecting tool authority.",
+    "categories": ["featured", "agentic"],
+    "accent": "cyan",
+    "repo": "https://github.com/vishalgwu/tento-agents",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-09-28",
+    "status": "Foundation built, documentation-first",
+    "stack": ["FastAPI", "Next.js 15", "Supabase Postgres", "pgvector", "BM25 hybrid", "BAAI/bge-reranker-v2-m3", "tiktoken", "OpenAPI", "Cloud Run", "Redis"],
+    "metrics": [
+      { "label": "Retrieval fusion", "value": "30 BM25 + 30 dense" },
+      { "label": "Rerank output", "value": "top 6" },
+      { "label": "Context budget", "value": "8,000 tokens" },
+      { "label": "Eval queries", "value": "50 human-authored" }
+    ],
+    "challenges": [
+      "Deterministic life-safety screening that never depends on a model deciding whether to notify a person.",
+      "Tenant isolation through row-level security plus an explicit organisation predicate on keyset-paginated queries.",
+      "Extractive compression that keeps verbatim source sentences with offsets, so lease and safety language is never summarised.",
+      "Token-budgeted context assembly with deterministic [C#] citations and [F#] facts."
+    ],
+    "architecture": "Resident report\n   |\n   v\n[Intake + life-safety screen]  (deterministic)\n   |\n   v\n[Hybrid retrieval] BM25 + pgvector --RRF--> cross-encoder rerank\n   |\n   v\n[Context assembly] [C#] cites | [F#] facts | 8k budget\n   |\n   v\n[Decision proposal] --> [Policy audit] --> [Human approval]\n   |\n   v\nDispatch proposal + immutable audit trace"
+  },
+  {
+    "slug": "hr-agentic-rag-copilot",
+    "title": "Enterprise HR Agentic RAG Copilot",
+    "tagline": "Agentic RAG that grades its evidence, or refuses to answer",
+    "overview": "A Forward Deployed Engineer style project that takes a RAG notebook to a deployable internal HR product. An 11-node LangGraph agent routes, grades retrieved evidence, rewrites queries, falls back to cited web search, and finally declines. Every answer is logged to an audit trail the browser console renders.",
+    "categories": ["featured", "agentic", "microservices"],
+    "accent": "emerald",
+    "repo": "https://github.com/vishalgwu/Enterprise-HR-Policy-And-Employee-Support-Agentic-Rag-Copilot",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-09-09",
+    "status": "Implemented; feedback capture pending",
+    "stack": ["LangGraph", "FastAPI", "Pinecone", "OpenAI", "Groq", "Tavily", "SQLite", "LangSmith", "Docker", "Ruff", "pytest"],
+    "metrics": [
+      { "label": "Routing + grading", "value": "21 / 21 correct" },
+      { "label": "Offline tests", "value": "230 passing" },
+      { "label": "Corpus", "value": "11 docs / 31 chunks" },
+      { "label": "Relevance gate", "value": "0.15 (OOD peak 0.099)" }
+    ],
+    "challenges": [
+      "Making 'internal policy does not cover this' a reachable outcome, not a fallback nobody wired up.",
+      "Calibrating the 0.15 relevance gate from a 12-question benchmark so it rejects every out-of-domain chunk and drops no real one.",
+      "Multi-format ingestion (Markdown, TXT, PDF, DOCX with tables) with deterministic chunk IDs and orphan pruning.",
+      "Auditable answers without leaking employee questions to third parties; tracing is redacted by default."
+    ],
+    "architecture": "question\n   |\n   v\n[contextualise] -> [route]\n                        |\n          +-------------+--------------+\n          v                            v\n   [retrieve: Pinecone]          [web search: Tavily]\n          |                            |\n          v                            |\n   [grade evidence] --weak--> [rewrite] --retry--+\n          |                                       |\n          v                                       v\n      [answer + citations]  <---- or ---->  [decline]\n          |\n          v\n   SQLite audit log (decision trace, latency)"
+  },
+  {
+    "slug": "lid",
+    "title": "Latent Instability Diagnostics (LID)",
+    "tagline": "Detect LLM hallucinations one token before they are emitted",
+    "overview": "Every mainstream hallucination detector is post-hoc. LID measures how sensitive a model's hidden-state manifold is to controlled Gaussian perturbation, flagging a tipping point 1 to 2 tokens ahead of the first hallucinated token. Eight baselines are reproduced behind a unified API for a fair comparison.",
+    "categories": ["featured", "deeplearning"],
+    "accent": "rose",
+    "repo": "https://github.com/vishalgwu/Latent-Instability-Diagnostics-LID",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-08-15",
+    "status": "Independent research",
+    "stack": ["PyTorch", "Transformers", "Hydra", "pytest", "GitHub Actions", "TruthfulQA", "8-bit quantization"],
+    "metrics": [
+      { "label": "AUROC (TruthfulQA)", "value": "0.71" },
+      { "label": "Inference overhead", "value": "15-20%" },
+      { "label": "Prompts evaluated", "value": "817" },
+      { "label": "Baselines reproduced", "value": "8" }
+    ],
+    "challenges": [
+      "Formalising instability as I(l,t) magnitude divergence plus q(l,t) directional alignment, combined into a composite score Z.",
+      "Keeping cost to 15-20% on one consumer GPU by re-projecting perturbed states through a stateless lm_head with 8-bit per-token tracing.",
+      "Reproducing DoLa, Semantic Entropy, LSD, SSP, INSIDE, SEP and ITI under one harness.",
+      "Making every figure regenerable by one command behind a 1,250-line pytest suite."
+    ],
+    "architecture": "prompt -> LLM decode step t\n            |\n            v\n   hidden state h_l(t)\n      |            \\\n      |   + Gaussian noise (sigma = alpha * RMS(h))\n      v            v\n   h_clean       h_pert\n        \\          /\n   I = ||dh|| / ||h||    q = cos(h_clean, h_pert)\n               |\n               v\n      Z = w*I + (1-w)*(1-q)\n               |\n   peak > mean(Z) + 1.5*std(Z)  -->  flag BEFORE token t+1"
+  },
+  {
+    "slug": "job-globe",
+    "title": "Jarvis Job Globe",
+    "tagline": "Geospatial job discovery on a WebGL globe",
+    "overview": "A startup MVP that lets students and early-career candidates explore hiring demand by country and city, understand fit against their resume, and apply through official links. The worker plane parses resumes, generates embeddings and evaluates alerts.",
+    "categories": ["featured", "agentic", "microservices"],
+    "accent": "cyan",
+    "repo": "https://github.com/vishalgwu/job-globe.com",
+    "demo": "https://job-globe-com-web.vercel.app",
+    "language": "TypeScript",
+    "stars": 0,
+    "updated": "2026-05-12",
+    "status": "Controlled-demo MVP, live on Vercel",
+    "stack": ["Next.js", "TypeScript", "globe.gl", "Supabase", "PostgreSQL", "FastAPI", "OpenAI", "Resend", "Docker", "k6", "GitHub Actions"],
+    "metrics": [
+      { "label": "Discovery layers", "value": "Global > Country > City > Job" },
+      { "label": "Compare", "value": "2-4 jobs side by side" },
+      { "label": "Match scoring", "value": "rules + embedding blend" },
+      { "label": "Delivery", "value": "Live demo on Vercel" }
+    ],
+    "challenges": [
+      "Rendering hiring density on a WebGL globe with a 2D fallback map.",
+      "Resume upload to private storage, then worker-based extraction and OpenAI structured parsing.",
+      "Blending rule-based scoring with embedding cosine similarity once profile and job vectors exist.",
+      "Alert CRUD, evaluator worker and email delivery path, covered by CI and a k6 load-test script."
+    ],
+    "architecture": "Browser (Next.js + globe.gl)\n   |\n   v\n[API routes] --auth--> Supabase Auth\n   |        \\\n   |         +--> Supabase Postgres (+ migrations)\n   v\n[Python workers]\n   ingestion | resume parse | embeddings | alerts | audit cleanup\n   |\n   v\nOpenAI structured output + Resend email"
+  },
+  {
+    "slug": "image-caption-generator",
+    "title": "Fashion Image Caption Generator",
+    "tagline": "48M-parameter captioner that beats larger zero-shot VLMs on garment attributes",
+    "overview": "A CNN-Transformer encoder-decoder trained from scratch on 45K Myntra fashion images, compared against Qwen2-VL and BLIP-2. A Streamlit dashboard offers caption generation, token-level importance and side-by-side model comparison.",
+    "categories": ["featured", "deeplearning"],
+    "accent": "violet",
+    "repo": "https://github.com/vishalgwu/Image_caption_generator",
+    "demo": null,
+    "language": "Python",
+    "stars": 1,
+    "updated": "2026-08-15",
+    "status": "Complete",
+    "stack": ["PyTorch", "Qwen2-VL", "BLIP-2", "vLLM", "Streamlit", "Parquet", "Cross-attention rollout"],
+    "metrics": [
+      { "label": "CIDEr", "value": "0.82 (vs 0.44 Qwen2-VL-2B)" },
+      { "label": "Attribute F1", "value": "71%" },
+      { "label": "p95 latency", "value": "1,240 -> 730 ms (-41%)" },
+      { "label": "Throughput", "value": "11 img/s on one A100" }
+    ],
+    "challenges": [
+      "Outperforming zero-shot Qwen2-VL-2B and BLIP-2 on catalogue-style attributes with 18x fewer parameters.",
+      "Migrating inference from a per-image generate loop to vLLM with continuous batching and prefix caching.",
+      "Validating grounding with decoder cross-attention rollout: 63% region agreement on 80 hand-annotated images.",
+      "Building an error taxonomy from 120 human preference judgments across 3 reviewers."
+    ],
+    "architecture": "Myntra images + metadata\n   |\n   v\n[CNN encoder] --> [Transformer decoder] --> caption\n   |                                           |\n   |                      cross-attention rollout\n   v                                           v\n[Qwen2-VL / BLIP-2 baselines]        word-importance maps\n          \\                                   /\n           +------> Streamlit dashboard <----+"
+  },
+  {
+    "slug": "willdocs-rag",
+    "title": "WillDocs RAG",
+    "tagline": "Streaming chat over your PDFs with hybrid search and reranking",
+    "overview": "A full-stack local RAG system built from scratch with LlamaIndex, Qdrant, FastAPI, Streamlit and Docker. Dense-only search was replaced with BM25-dense fusion via RRF, then reranked with a MiniLM cross-encoder. An embedding-keyed semantic cache trims cost per query.",
+    "categories": ["agentic", "microservices"],
+    "accent": "emerald",
+    "repo": "https://github.com/vishalgwu/Will_Docs",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-08-15",
+    "status": "Complete",
+    "stack": ["LlamaIndex", "Qdrant", "FastAPI", "SSE", "Streamlit", "Docker", "BM25", "RRF", "MiniLM cross-encoder"],
+    "metrics": [
+      { "label": "recall@5", "value": "71% -> 84%" },
+      { "label": "p95 retrieval", "value": "240 ms" },
+      { "label": "p95 time-to-first-token", "value": "1.4 s" },
+      { "label": "Cost per query", "value": "-31% via semantic cache" }
+    ],
+    "challenges": [
+      "Serving 3,400 chunks from 120 mixed-format documents under 5 concurrent users on a shared CPU.",
+      "Hybrid BM25-dense retrieval fused with RRF, reranking top 12 down to 4.",
+      "Streaming answers over async FastAPI and server-sent events."
+    ],
+    "architecture": "PDFs -> parse -> chunk -> embed -> Qdrant\n\nquery\n   |\n   +--> BM25 ----+\n   |             +--RRF--> top 12 --> cross-encoder --> top 4\n   +--> dense ---+                                      |\n   |                                                    v\n   +--> semantic cache (hit: skip LLM)         LLM --SSE--> Streamlit"
+  },
+  {
+    "slug": "hgem-research",
+    "title": "Human-Gated External Memory (HGEM)",
+    "tagline": "Does unfiltered memory cause reasoning drift in LLM agents?",
+    "overview": "A research programme testing whether restricting long-term memory to human-validated reasoning states lowers Constraint Violation Rate and Reasoning Drift Index. Memory is split into immutable laws, human-gated graph nodes and a five-turn ephemeral window, with random-gate and adversarial ablations.",
+    "categories": ["deeplearning", "agentic"],
+    "accent": "violet",
+    "repo": "https://github.com/vishalgwu/Human-Gated-External-Memory-HGEM",
+    "demo": null,
+    "language": "HTML",
+    "stars": 0,
+    "updated": "2026-05-10",
+    "status": "Setup and dataset pipeline complete; experiments not started",
+    "stack": ["Neo4j", "PostgreSQL", "Redis", "ChromaDB", "sentence-transformers", "statsmodels", "pingouin", "Docker"],
+    "metrics": [
+      { "label": "Experimental conditions", "value": "10 (C1 to C-ADV)" },
+      { "label": "Memory tiers", "value": "T1 / T2 / T3" },
+      { "label": "Ablations", "value": "random-gate, 2x2 graph vs gating" },
+      { "label": "Stage", "value": "Pipeline built; results pending" }
+    ],
+    "challenges": [
+      "Designing a 2x2 ablation that separates storage structure from human gating.",
+      "A shadow-model protocol that compares HGEM against full-history memory step by step.",
+      "An adversarial false-memory condition testing whether immutable T1 constants hold."
+    ],
+    "architecture": "context injection order\n\n[T1 immutable constants]  locked, model cannot edit\n          |\n          v\n[T2 Neo4j graph traversal]  human-approved nodes + dependency edges\n          |\n          v\n[T3 last five turns]  ephemeral\n          |\n          v\n        LLM   (never sees raw full history)"
+  },
+  {
+    "slug": "rag-hallucination-detection",
+    "title": "RAG Hallucination Detection",
+    "tagline": "Predicting whether external context shifts a model's internal belief",
+    "overview": "Streaming detection of hallucinations in retrieval-augmented generation using internal signals. Seven signal extractors feed a hallucination score, with token-level annotations and real-time intervention experiments across 1,500 curated examples.",
+    "categories": ["deeplearning"],
+    "accent": "rose",
+    "repo": "https://github.com/vishalgwu/RAG-Hallucination-Detection",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-04-18",
+    "status": "Research in progress",
+    "stack": ["PyTorch", "LLaMA-2-7B", "HotpotQA", "SQuAD v2", "Embedding cache"],
+    "metrics": [
+      { "label": "Curated examples", "value": "1,500" },
+      { "label": "Signal extractors", "value": "7" },
+      { "label": "Datasets", "value": "HotpotQA, SQuAD v2" },
+      { "label": "Labels", "value": "token-level" }
+    ],
+    "challenges": [
+      "Turning internal model signals into a calibrated per-token hallucination score.",
+      "Building token-level annotations on top of generated responses.",
+      "Evaluating real-time interventions rather than only post-hoc detection."
+    ],
+    "architecture": "query + retrieved context\n   |\n   v\n[LLM generation] -- hidden states / logits\n   |\n   v\n[7 signal extractors]\n   |\n   v\n[hallucination score] --> [intervention policy] --> safer output"
+  },
+  {
+    "slug": "transformer-percolation",
+    "title": "Transformer Percolation & RAG Context",
+    "tagline": "Phase transitions inside GPT-2 hidden states",
+    "overview": "Investigates whether token representations move from fragmented clusters to a single giant connected component as depth increases, and whether prepending RAG context changes that topological signature.",
+    "categories": ["deeplearning"],
+    "accent": "cyan",
+    "repo": "https://github.com/vishalgwu/Transformer-percolation-rag",
+    "demo": null,
+    "language": "Jupyter Notebook",
+    "stars": 0,
+    "updated": "2026-03-28",
+    "status": "Research notebooks",
+    "stack": ["PyTorch", "GPT-2", "Jupyter", "Graph connectivity", "NumPy"],
+    "metrics": [
+      { "label": "Critical layer", "value": "Layer 11 of 12" },
+      { "label": "Model", "value": "GPT-2" },
+      { "label": "Research questions", "value": "2" },
+      { "label": "Analysis", "value": "threshold-invariant" }
+    ],
+    "challenges": [
+      "Identifying the percolation transition independent of the similarity threshold chosen.",
+      "Comparing relevant against irrelevant RAG context through connectivity of the hidden-state graph."
+    ],
+    "architecture": "tokens -> GPT-2 layers 1..12\n   |\n   v\nhidden states per layer\n   |\n   v\nsimilarity graph (threshold tau)\n   |\n   v\ngiant connected component size vs depth\n   |\n   v\ncompare: no context | relevant RAG | irrelevant RAG"
+  },
+  {
+    "slug": "jev-review-classifier",
+    "title": "Jev Review Classifier",
+    "tagline": "One review in, five typed judgments out in a single call",
+    "overview": "Multi-attribute e-commerce review classifier on Jev, a System-1 decision model. Sentiment, aspect, rating, escalation and suspicion are evaluated in parallel with calibrated confidence, then routed by confidence thresholds into auto-act, act-with-log or human review.",
+    "categories": ["agentic", "microservices"],
+    "accent": "emerald",
+    "repo": "https://github.com/vishalgwu/jev-review-classifier",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-09-27",
+    "status": "Complete",
+    "stack": ["Jev (TypeSafe AI)", "Python", "Pandas", "Streamlit", "Schema-constrained output"],
+    "metrics": [
+      { "label": "Attributes per call", "value": "5 in parallel" },
+      { "label": "Auto-act threshold", "value": "confidence >= 0.90" },
+      { "label": "Human review", "value": "confidence < 0.50" },
+      { "label": "Labelled samples", "value": "12 reviews" }
+    ],
+    "challenges": [
+      "Designing atomic typed questions, since the schema is the heart of the system.",
+      "Confidence-gated routing so low-confidence cases go to a person.",
+      "An evaluation CLI covering accuracy, rating MAE, latency and estimated cost."
+    ],
+    "architecture": "review text (state)\n   |\n   v\n sentiment | aspect | rating | needs_escalation | is_suspicious\n   \\          \\        |        /               /\n    +---------+--- one API call ---------------+\n                       |\n                       v\n             confidence-gated router\n     >=0.90 auto_act | 0.50-0.90 act_with_log | <0.50 human_review"
+  },
+  {
+    "slug": "hire-ai",
+    "title": "hire.ai",
+    "tagline": "Multi-agent hiring platform built in 24 hours at Bitcamp 2026",
+    "overview": "Goes beyond the resume: parses resumes, scrapes and evaluates real GitHub code, scores job-role fit, and analyses interview performance from audio. Outputs a match score, strengths, skill gaps and coverage.",
+    "categories": ["agentic"],
+    "accent": "rose",
+    "repo": "https://github.com/vishalgwu/Bitcamp-Hackathon-2026",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-04-14",
+    "status": "Hackathon build",
+    "stack": ["Streamlit", "Gemini API", "LLaMA 3.3 (Groq)", "Whisper", "MongoDB", "GitHub API", "bcrypt"],
+    "metrics": [
+      { "label": "Build time", "value": "24 hours" },
+      { "label": "Agents", "value": "resume, GitHub, fit, interview" },
+      { "label": "Output", "value": "score, strengths, gaps" },
+      { "label": "Event", "value": "Bitcamp 2026" }
+    ],
+    "challenges": [
+      "Extracting meaningful signal from raw GitHub code.",
+      "Keeping scoring consistent across independent agents.",
+      "Handling rate limits and transcribing interviews accurately inside a hackathon clock."
+    ],
+    "architecture": "candidate\n   |\n   +--> [Resume agent] ----+\n   +--> [GitHub agent] ----+--> [Fit scorer] --> report\n   +--> [Interview agent] -+     (Whisper transcript)\n                                  |\n                              MongoDB"
+  },
+  {
+    "slug": "travel-planner",
+    "title": "AI Budget-Aware Travel Planner",
+    "tagline": "Async 5-agent graph from natural-language trip to itinerary",
+    "overview": "Parses requests like 'fly from Tokyo to Paris with my daughter', then fans out parallel API calls for flights and hotels and uses LLMs for packing lists and budget breakdowns inside a Streamlit app.",
+    "categories": ["agentic"],
+    "accent": "cyan",
+    "repo": "https://github.com/vishalgwu/Travel_Planner.com",
+    "demo": null,
+    "language": "Python",
+    "stars": 2,
+    "updated": "2026-07-13",
+    "status": "Complete",
+    "stack": ["Streamlit", "Gemini 2.5 Pro", "OpenAI", "Mistral", "LLaMA", "RapidAPI", "SerpAPI", "asyncio"],
+    "metrics": [
+      { "label": "End-to-end latency", "value": "1.8 s" },
+      { "label": "Agents", "value": "5, async" },
+      { "label": "Budget tiers", "value": "Basic / Advance / Business" },
+      { "label": "Stars", "value": "2" }
+    ],
+    "challenges": [
+      "Extracting origin, dates, party type and budget from free text.",
+      "Parallel API calls with retry logic and structured markdown synthesis."
+    ],
+    "architecture": "prompt\n   |\n   v\n[Parser agent] --> structured trip spec\n   |\n   +--> [Flights: RapidAPI]\n   +--> [Hotels: SerpAPI]     (parallel, with retries)\n   +--> [Packing + budget: LLM]\n   |\n   v\n[Synthesiser] --> markdown plan in Streamlit"
+  },
+  {
+    "slug": "nba-gpt-assistant",
+    "title": "NBA GPT Assistant",
+    "tagline": "Serverless AWS chatbot for NBA questions",
+    "overview": "A Streamlit front end calls an API Gateway HTTP endpoint that invokes a Lambda function, which answers with OpenAI GPT. Curated datasets live in S3 and IAM scopes access.",
+    "categories": ["microservices", "agentic"],
+    "accent": "violet",
+    "repo": "https://github.com/vishalgwu/NBA-GPT-Assistant",
+    "demo": null,
+    "language": "Python",
+    "stars": 1,
+    "updated": "2026-05-09",
+    "status": "Complete",
+    "stack": ["AWS Lambda", "API Gateway", "Amazon S3", "IAM", "CloudShell", "OpenAI gpt-4o-mini", "Streamlit"],
+    "metrics": [
+      { "label": "Backend", "value": "Fully serverless" },
+      { "label": "Model", "value": "gpt-4o-mini" },
+      { "label": "Endpoint", "value": "POST /ask" },
+      { "label": "Storage", "value": "S3 raw + clean" }
+    ],
+    "challenges": [
+      "Wiring Lambda, HTTP API and IAM roles for a pay-per-request backend.",
+      "Separating raw and curated datasets in S3."
+    ],
+    "architecture": "Streamlit app\n   |  POST /ask\n   v\nAPI Gateway (HTTP API)\n   |\n   v\nLambda: nba_gpt_lambda --> OpenAI gpt-4o-mini\n   |\n   v\nJSON response   (S3: raw + clean datasets, IAM role)"
+  },
+  {
+    "slug": "world-bank-rag",
+    "title": "World Bank Data Explorer & RAG Assistant",
+    "tagline": "Ask questions of World Bank indicators in plain English",
+    "overview": "Cleans World Bank benchmarking data into Parquet, embeds it into Qdrant, and answers analytical questions with RAG alongside an interactive Streamlit dashboard. A sibling Technica 2025 build adds a 'chat with the data' agent over roughly 150MB of income and demographic data.",
+    "categories": ["agentic", "bigdata"],
+    "accent": "emerald",
+    "repo": "https://github.com/vishalgwu/Word_bank_2025",
+    "demo": null,
+    "language": "Python",
+    "stars": 6,
+    "updated": "2026-02-28",
+    "status": "Hackathon build",
+    "stack": ["Qdrant", "Streamlit", "Parquet", "Pandas", "Embeddings", "LLM RAG"],
+    "metrics": [
+      { "label": "Stars", "value": "6" },
+      { "label": "Dataset (Technica)", "value": "~150 MB, 2 Excel files" },
+      { "label": "Storage format", "value": "Parquet" },
+      { "label": "Vector DB", "value": "Qdrant" }
+    ],
+    "challenges": [
+      "Turning complex CSV and XLSB navigation into a semantic, searchable knowledge base.",
+      "Grounding LLM answers in retrieved indicator rows."
+    ],
+    "architecture": "World Bank CSV / XLSB\n   |\n   v\n[clean -> Parquet] --> [embeddings] --> Qdrant\n                                           |\nquestion --> retrieve --> LLM --> grounded answer\n                                           |\n                          Streamlit dashboard (charts + chat)"
+  },
+  {
+    "slug": "dc-crime-analysis",
+    "title": "Washington DC Crime Hotspots",
+    "tagline": "Spatial analysis of 3,475 firearm-involved incidents",
+    "overview": "Segments firearm-involved incidents across ward, shift and offense type after point-in-polygon assignment, uncovering a shift-specific reversal in DC's gun-offence geography.",
+    "categories": ["bigdata"],
+    "accent": "rose",
+    "repo": "https://github.com/vishalgwu/washogton_crime_report-",
+    "demo": null,
+    "language": "HTML",
+    "stars": 0,
+    "updated": "2026-08-16",
+    "status": "Complete",
+    "stack": ["R", "Python", "Shapefiles", "Point-in-polygon", "Heatmaps", "DC Open Data"],
+    "metrics": [
+      { "label": "Incidents segmented", "value": "3,475" },
+      { "label": "Wards 7-8 share", "value": "1,536 (44%)" },
+      { "label": "Ward spread", "value": "21:1 high to low" },
+      { "label": "Ward 1 midnight robbery", "value": "4th -> 1st" }
+    ],
+    "challenges": [
+      "Joining incident coordinates to ward and neighbourhood-cluster boundaries.",
+      "Anti-join validation to confirm unmatched points fell outside the District."
+    ],
+    "architecture": "DC Open Data incidents\n   |\n   v\n[clean + filter firearm-involved]\n   |\n   v\n[point-in-polygon: ward + cluster shapefiles]\n   |\n   v\n[segment: ward x shift x offense] --> heatmaps + findings"
+  },
+  {
+    "slug": "nfl-big-data-bowl",
+    "title": "NFL Big Data Bowl 2025",
+    "tagline": "Pre-snap tendencies versus post-snap outcomes from tracking data",
+    "overview": "Exploratory and confirmatory analysis of NFL Next Gen Stats tracking data for a Kaggle competition, covering top-player evaluation, home and away win rates and advanced visualisation.",
+    "categories": ["bigdata"],
+    "accent": "cyan",
+    "repo": "https://github.com/vishalgwu/NBA-Big-data-analysis",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2025-01-19",
+    "status": "Competition entry",
+    "stack": ["Python", "Pandas", "Matplotlib", "Seaborn", "Kaggle"],
+    "metrics": [
+      { "label": "Competition", "value": "Kaggle Big Data Bowl" },
+      { "label": "Data", "value": "Next Gen Stats tracking" },
+      { "label": "Approach", "value": "EDA then confirmatory" },
+      { "label": "Focus", "value": "pre-snap vs post-snap" }
+    ],
+    "challenges": [
+      "Linking pre-snap player alignment to post-snap outcomes at tracking-data scale.",
+      "Communicating findings visually for coaches and team management."
+    ],
+    "architecture": "NFL tracking data\n   |\n   v\n[EDA: players, teams, win rates]\n   |\n   v\n[pre-snap features] --> [post-snap outcomes]\n   |\n   v\nvisual report"
+  },
+  {
+    "slug": "loan-performance",
+    "title": "Fannie Mae Loan Performance",
+    "tagline": "Loan-level mortgage delinquency and risk insights",
+    "overview": "Analysis of the Fannie Mae Single-Family Loan Performance dataset covering credit performance, delinquency status, credit scores and loan-to-value ratios.",
+    "categories": ["bigdata"],
+    "accent": "emerald",
+    "repo": "https://github.com/vishalgwu/loan-Performance",
+    "demo": null,
+    "language": "Jupyter Notebook",
+    "stars": 0,
+    "updated": "2025-02-16",
+    "status": "Complete",
+    "stack": ["Python", "Jupyter", "Pandas", "Scikit-learn"],
+    "metrics": [
+      { "label": "Granularity", "value": "Loan-level" },
+      { "label": "Signals", "value": "delinquency, FICO, LTV" },
+      { "label": "Source", "value": "Fannie Mae" },
+      { "label": "Format", "value": "Notebook report" }
+    ],
+    "challenges": [
+      "Working with a large loan-level performance dataset tracked over time."
+    ],
+    "architecture": "Fannie Mae loan data\n   |\n   v\n[load + clean] --> [feature engineering: FICO, LTV, delinquency]\n   |\n   v\n[analysis + models] --> insights"
+  },
+  {
+    "slug": "train-accident-analysis",
+    "title": "US Railroad Accident Analysis",
+    "tagline": "Highway-rail crossing safety, backed by a literature review",
+    "overview": "Data analysis of Kaggle railroad accident and incident data, framed by a literature review on driver behaviour, visibility and warning systems.",
+    "categories": ["bigdata"],
+    "accent": "rose",
+    "repo": "https://github.com/vishalgwu/US-train-accident-",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2025-01-17",
+    "status": "Complete",
+    "stack": ["Python", "Pandas", "Matplotlib", "Kaggle"],
+    "metrics": [
+      { "label": "Source", "value": "Kaggle FRA incident data" },
+      { "label": "Framing", "value": "Literature review" },
+      { "label": "Topic", "value": "Crossing safety" },
+      { "label": "Type", "value": "EDA" }
+    ],
+    "challenges": [
+      "Connecting incident data to documented risk factors from prior research."
+    ],
+    "architecture": "FRA accident dataset\n   |\n   v\n[clean + explore]\n   |\n   v\n[risk factors: weather, crossing type, severity]\n   |\n   v\nfindings tied to literature"
+  },
+  {
+    "slug": "wine-nlp",
+    "title": "Traditional NLP for Wine Classification",
+    "tagline": "TF-IDF with Logistic Regression, Random Forest and XGBoost",
+    "overview": "End-to-end classical NLP pipeline predicting wine variety and colour from roughly 81,000 cleaned reviews.",
+    "categories": ["deeplearning"],
+    "accent": "violet",
+    "repo": "https://github.com/vishalgwu/Traditional-NLP-for-wine-",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2025-10-09",
+    "status": "Complete",
+    "stack": ["scikit-learn", "XGBoost", "TF-IDF", "Bag-of-Words", "Pandas"],
+    "metrics": [
+      { "label": "Reviews", "value": "~81,000 cleaned" },
+      { "label": "Best accuracy", "value": "0.635" },
+      { "label": "Best macro F1", "value": "0.56" },
+      { "label": "Models", "value": "LR, RF, XGBoost" }
+    ],
+    "challenges": [
+      "Comparing three model families on a many-class text task with imbalanced varieties."
+    ],
+    "architecture": "Winemag reviews (~150k)\n   |\n   v\n[clean -> ~81k] --> [TF-IDF / BoW]\n   |\n   +--> Logistic Regression\n   +--> Random Forest\n   +--> XGBoost\n   |\n   v\naccuracy, macro/weighted F1"
+  },
+  {
+    "slug": "mlops-interview-prep",
+    "title": "MLOps Interview Preparation",
+    "tagline": "Zero-to-hero MLOps curriculum with runnable code and failure post-mortems",
+    "overview": "Twelve modules covering the full ML lifecycle: data validation, feature stores, DVC, MLflow registry, CI/CD/CT, Kubernetes and Triton serving, monitoring, and retraining triggers. Each module pairs theory with executable code and staff-level interview answers.",
+    "categories": ["microservices"],
+    "accent": "cyan",
+    "repo": "https://github.com/vishalgwu/mlops-interview-preparation",
+    "demo": null,
+    "language": "Markdown",
+    "stars": 0,
+    "updated": "2026-10-09",
+    "status": "Complete",
+    "stack": ["Docker", "Kubernetes", "FastAPI", "MLflow", "DVC", "Feast", "Prometheus", "Grafana", "GitHub Actions"],
+    "metrics": [
+      { "label": "Modules", "value": "12" },
+      { "label": "Per module", "value": "theory, code, post-mortems, Q&A" },
+      { "label": "Monitoring", "value": "Prometheus + Grafana" },
+      { "label": "Loop", "value": "continuous training" }
+    ],
+    "challenges": [
+      "Showing how every module connects into a single loop where monitoring triggers CI/CD/CT."
+    ],
+    "architecture": "raw data -> validation -> feature store -> training (DVC)\n                                         |\n                                         v\n                                  MLflow registry\n                                         |\n                                         v\n                   CI/CD/CT -> Kubernetes / Triton serving\n                                         |\n                                         v\n             Prometheus + Evidently monitoring -> retrain trigger"
+  },
+  {
+    "slug": "genai-interview-prep",
+    "title": "GenAI Interview Preparation",
+    "tagline": "From LLM foundations to a tested production reference agent",
+    "overview": "Thirteen expanded study guides, an architecture tree, 52 Mermaid diagrams and 160+ Python samples, culminating in a from-scratch support agent with every layer implemented.",
+    "categories": ["agentic", "microservices"],
+    "accent": "violet",
+    "repo": "https://github.com/vishalgwu/genai-interview-preparation",
+    "demo": null,
+    "language": "HTML",
+    "stars": 0,
+    "updated": "2026-10-09",
+    "status": "Complete",
+    "stack": ["PyTorch", "FastAPI", "Pydantic", "LlamaIndex", "Qdrant", "vLLM", "MCP", "LangGraph", "OpenTelemetry"],
+    "metrics": [
+      { "label": "Study modules", "value": "13" },
+      { "label": "Mermaid diagrams", "value": "52" },
+      { "label": "Python samples", "value": "160+" },
+      { "label": "Reference agent tests", "value": "30 passing" }
+    ],
+    "challenges": [
+      "Covering tool calling, MCP, memory, RAG, reliability, security and evaluation in one coherent curriculum.",
+      "Testing the reference agent offline, without a model."
+    ],
+    "architecture": "Seven-layer agent\n\n[Guardrails + HITL]\n[Tools + MCP]\n[RAG: hybrid + rerank + 'I don't know']\n[Memory + State]\n[Planner / Router]\n[LLM]\n[Observability: traces, evals, cost]"
+  },
+  {
+    "slug": "mlops-lab",
+    "title": "MLOps Learning Roadmap",
+    "tagline": "From Linux and Git fundamentals to monitored production ML",
+    "overview": "A hands-on lab documenting the path from reproducible pipelines and experiment tracking to containers, CI/CD, Kubernetes, cloud deployment and monitoring.",
+    "categories": ["microservices"],
+    "accent": "emerald",
+    "repo": "https://github.com/vishalgwu/mlops-lab",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-09-10",
+    "status": "Ongoing",
+    "stack": ["Docker", "Git", "CI/CD", "Kubernetes", "Experiment tracking", "Data versioning"],
+    "metrics": [
+      { "label": "Coverage", "value": "Linux to monitoring" },
+      { "label": "Lifecycle stages", "value": "12" },
+      { "label": "Style", "value": "hands-on" },
+      { "label": "Goal", "value": "full lifecycle" }
+    ],
+    "challenges": [
+      "Tying individual tools into one lifecycle from data versioning to retraining."
+    ],
+    "architecture": "Data -> versioning -> pipeline -> training\n   -> tracking -> registry -> testing -> Docker\n   -> CI/CD -> cloud deploy -> monitoring -> retraining"
+  },
+  {
+    "slug": "sql-netflix",
+    "title": "Netflix SQL Analysis",
+    "tagline": "PostgreSQL deep dive on titles, genres and actors",
+    "overview": "SQL analysis of Netflix titles: top actors in Indian productions, genre filtering and recent-release queries.",
+    "categories": ["bigdata"],
+    "accent": "rose",
+    "repo": "https://github.com/vishalgwu/sql_netflix_project",
+    "demo": null,
+    "language": "SQL",
+    "stars": 1,
+    "updated": "2025-09-19",
+    "status": "Complete",
+    "stack": ["PostgreSQL", "SQL", "Window functions"],
+    "metrics": [
+      { "label": "Database", "value": "PostgreSQL" },
+      { "label": "Analyses", "value": "actor, genre, recency" },
+      { "label": "Stars", "value": "1" },
+      { "label": "Type", "value": "SQL project" }
+    ],
+    "challenges": [
+      "Answering multi-attribute questions about people, genres and countries in pure SQL."
+    ],
+    "architecture": "Netflix titles CSV\n   |\n   v\nPostgreSQL table\n   |\n   v\nSQL: top actors | genre filters | last-10-year releases"
+  }
+]
