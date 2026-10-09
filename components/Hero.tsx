@@ -1,16 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { Download, Mail, Sparkles, Terminal } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { ArrowDown, Download, Mail, Sparkles } from "lucide-react";
 import { Github, Linkedin } from "./icons";
+import Magnetic from "./Magnetic";
+import CountUp from "./CountUp";
 import { profile } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
 interface HeroProps {
+  ready: boolean;
   onRecruiter: () => void;
   recruiterOpen: boolean;
 }
+
+const WORDS = ["trust.", "audit.", "measure.", "ship."];
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 function useTypewriter(lines: string[]) {
   const [text, setText] = useState("");
@@ -18,15 +24,13 @@ function useTypewriter(lines: string[]) {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setText(lines[0]);
       return;
     }
     const current = lines[index % lines.length];
     let delay = deleting ? 22 : 55;
     let next: () => void;
-
     if (!deleting && text === current) {
       delay = 1500;
       next = () => setDeleting(true);
@@ -37,8 +41,7 @@ function useTypewriter(lines: string[]) {
         setIndex((i) => (i + 1) % lines.length);
       };
     } else {
-      next = () =>
-        setText(deleting ? current.slice(0, text.length - 1) : current.slice(0, text.length + 1));
+      next = () => setText(deleting ? current.slice(0, text.length - 1) : current.slice(0, text.length + 1));
     }
     const t = setTimeout(next, delay);
     return () => clearTimeout(t);
@@ -47,152 +50,176 @@ function useTypewriter(lines: string[]) {
   return text;
 }
 
-const buttonBase =
-  "inline-flex items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition";
+function Line({ children, i, ready, className }: { children: React.ReactNode; i: number; ready: boolean; className?: string }) {
+  return (
+    <span className="block overflow-hidden pb-[0.08em]">
+      <motion.span
+        className={cn("block", className)}
+        initial={{ y: "115%" }}
+        animate={ready ? { y: 0 } : { y: "115%" }}
+        transition={{ duration: 1, ease: EASE, delay: i * 0.12 }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
 
-export default function Hero({ onRecruiter, recruiterOpen }: HeroProps) {
+const btn = "inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition";
+
+const stats = [
+  { to: 24, suffix: "", decimals: 0, label: "projects across 5 domains" },
+  { to: 230, suffix: "", decimals: 0, label: "offline tests, HR copilot" },
+  { to: 0.71, suffix: "", decimals: 2, label: "AUROC, pre-emission detection" },
+  { to: 84, suffix: "%", decimals: 0, label: "recall@5, hybrid RAG" },
+];
+
+export default function Hero({ ready, onRecruiter, recruiterOpen }: HeroProps) {
   const typed = useTypewriter(profile.typewriter);
+  const [word, setWord] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const spot = useMotionTemplate`radial-gradient(520px circle at ${mx}px ${my}px, rgba(139,92,246,0.22), rgba(6,182,212,0.08) 40%, transparent 70%)`;
+
+  useEffect(() => {
+    if (!ready) return;
+    const id = setInterval(() => setWord((w) => (w + 1) % WORDS.length), 2400);
+    return () => clearInterval(id);
+  }, [ready]);
 
   return (
-    <section id="top" className="relative px-4 pb-14 pt-28 sm:px-6 sm:pt-36 lg:px-10 lg:pb-20">
-      <div className="mx-auto grid max-w-[1800px] items-center gap-10 lg:grid-cols-[1.15fr_1fr]">
-        <div>
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="glass inline-flex items-center gap-2 rounded-full px-3 py-1 font-mono text-xs text-emerald-300"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-glow opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-glow" />
+    <section
+      ref={sectionRef}
+      id="top"
+      onMouseMove={(e) => {
+        const r = sectionRef.current?.getBoundingClientRect();
+        if (!r) return;
+        mx.set(e.clientX - r.left);
+        my.set(e.clientY - r.top);
+      }}
+      className="relative flex min-h-[100svh] flex-col justify-center px-4 pb-10 pt-28 sm:px-6 lg:px-10"
+    >
+      <motion.div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: spot }} />
+
+      <div className="relative mx-auto w-full max-w-[1800px]">
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={ready ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.1 }}
+          className="mb-6 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.28em] text-slate-400"
+        >
+          <span className="h-px w-10 bg-gradient-to-r from-cyber to-electric" />
+          Vishal Fulsundar · AI Systems &amp; Data Science Engineer
+        </motion.p>
+
+        <h1 className="font-display text-[clamp(2.9rem,10.5vw,10.5rem)] font-extrabold leading-[0.92] tracking-[-0.035em] text-white">
+          <Line i={0} ready={ready}>AI systems</Line>
+          <Line i={1} ready={ready}>you can</Line>
+          <Line i={2} ready={ready}>
+            <span className="relative inline-block min-w-[3ch]">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={WORDS[word]}
+                  initial={{ y: "60%", opacity: 0, filter: "blur(8px)" }}
+                  animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                  exit={{ y: "-60%", opacity: 0, filter: "blur(8px)" }}
+                  transition={{ duration: 0.45, ease: EASE }}
+                  className="text-gradient animate-shimmer inline-block"
+                >
+                  {WORDS[word]}
+                </motion.span>
+              </AnimatePresence>
             </span>
-            MS Data Science · George Washington University
-          </motion.span>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.08, duration: 0.6 }}
-            className="mt-5 text-4xl font-extrabold leading-[1.05] tracking-tight text-white xs:text-5xl sm:text-6xl xl:text-7xl 3xl:text-8xl"
-          >
-            {profile.name}
-            <span className="mt-2 block text-gradient animate-shimmer text-[0.55em] font-bold leading-tight">
-              AI Systems &amp; Data Science Engineer
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.18, duration: 0.6 }}
-            className="mt-5 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg"
-          >
-            {profile.tagline}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.28, duration: 0.6 }}
-            className="mt-8 flex flex-wrap gap-3"
-          >
-            <button
-              onClick={onRecruiter}
-              aria-pressed={recruiterOpen}
-              className={cn(
-                buttonBase,
-                "bg-gradient-to-r from-cyber to-electric text-white shadow-[0_0_30px_rgba(6,182,212,0.35)] hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(139,92,246,0.55)]",
-              )}
-            >
-              <Sparkles className="h-4 w-4" />
-              Recruiter 60-Second Snapshot
-            </button>
-            <a
-              href="resume/"
-              className={cn(buttonBase, "glass text-slate-100 hover:border-cyber/60 hover:bg-white/10")}
-            >
-              <Download className="h-4 w-4" />
-              Download Resume
-            </a>
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noreferrer"
-              className={cn(buttonBase, "glass text-slate-100 hover:border-white/40 hover:bg-white/10")}
-            >
-              <Github className="h-4 w-4" />
-              GitHub
-            </a>
-            <a
-              href={profile.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className={cn(buttonBase, "glass text-slate-100 hover:border-cyber/60 hover:bg-white/10")}
-            >
-              <Linkedin className="h-4 w-4" />
-              LinkedIn
-            </a>
-            <a
-              href={`mailto:${profile.email}`}
-              className={cn(buttonBase, "glass text-slate-100 hover:border-radiant/60 hover:bg-white/10")}
-            >
-              <Mail className="h-4 w-4" />
-              Email
-            </a>
-          </motion.div>
-        </div>
+          </Line>
+        </h1>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 24 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.25, duration: 0.7 }}
-          className="relative"
+          initial={{ opacity: 0, y: 24 }}
+          animate={ready ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.55, duration: 0.8, ease: EASE }}
+          className="mt-8 grid items-end gap-8 lg:grid-cols-[1.2fr_1fr]"
         >
-          <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-cyber/30 via-electric/20 to-radiant/20 blur-2xl" />
-          <div className="glass relative overflow-hidden rounded-2xl shadow-2xl">
-            <div className="flex items-center gap-2 border-b border-white/10 bg-black/30 px-4 py-3">
-              <span className="h-3 w-3 rounded-full bg-radiant" />
-              <span className="h-3 w-3 rounded-full bg-amber-400" />
-              <span className="h-3 w-3 rounded-full bg-glow" />
-              <span className="ml-3 flex items-center gap-1.5 font-mono text-xs text-slate-400">
-                <Terminal className="h-3.5 w-3.5" /> vishal@portfolio ~ stack
-              </span>
-            </div>
-            <div className="space-y-2 p-5 font-mono text-[13px] leading-relaxed sm:text-sm">
-              <p className="text-slate-500">
-                <span className="text-glow">$</span> whoami
-              </p>
-              <p className="text-slate-200">{profile.name} · {profile.school}</p>
-              <p className="pt-2 text-slate-500">
-                <span className="text-glow">$</span> stack --live
-              </p>
-              <p className="min-h-[1.6em] text-cyan-300" aria-live="off">
-                {typed}
-                <span className="ml-0.5 inline-block h-4 w-2 translate-y-0.5 animate-blink bg-cyber" />
-              </p>
-              <div className="flex flex-wrap gap-2 pt-3">
-                {["agentic-rag", "llm-infra", "research", "mlops", "data-science"].map((t, i) => (
-                  <span
-                    key={t}
-                    className={cn(
-                      "rounded-md border px-2 py-0.5 text-[11px]",
-                      [
-                        "border-cyber/40 text-cyan-300",
-                        "border-electric/40 text-violet-300",
-                        "border-glow/40 text-emerald-300",
-                        "border-radiant/40 text-rose-300",
-                        "border-white/20 text-slate-300",
-                      ][i],
-                    )}
-                  >
-                    #{t}
-                  </span>
-                ))}
-              </div>
-            </div>
+          <div>
+            <p className="max-w-2xl text-base leading-relaxed text-slate-300 sm:text-xl">
+              Agents that cite their evidence. Memory that earns its place. Models measured before they are trusted.
+              MS Data Science at George Washington University.
+            </p>
+            <p className="mt-4 flex min-h-[1.5em] items-center gap-2 font-mono text-sm text-cyan-300">
+              <span className="text-glow">$</span> {typed}
+              <span className="inline-block h-4 w-2 animate-blink bg-cyber" />
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-3 lg:justify-end">
+            <Magnetic>
+              <button
+                onClick={onRecruiter}
+                aria-pressed={recruiterOpen}
+                data-cursor="Go"
+                className={cn(btn, "bg-white text-obsidian shadow-[0_0_40px_rgba(139,92,246,0.45)] hover:scale-105")}
+              >
+                <Sparkles className="h-4 w-4" />
+                Recruiter 60-Second Snapshot
+              </button>
+            </Magnetic>
+            <Magnetic>
+              <a href="resume/" className={cn(btn, "glass text-slate-100 hover:border-cyber/60")}>
+                <Download className="h-4 w-4" />
+                Resume
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a href={profile.github} target="_blank" rel="noreferrer" className={cn(btn, "glass text-slate-100 hover:border-white/40")}>
+                <Github className="h-4 w-4" />
+                GitHub
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" className={cn(btn, "glass text-slate-100 hover:border-cyber/60")}>
+                <Linkedin className="h-4 w-4" />
+                LinkedIn
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a href={`mailto:${profile.email}`} className={cn(btn, "glass text-slate-100 hover:border-radiant/60")}>
+                <Mail className="h-4 w-4" />
+                Email
+              </a>
+            </Magnetic>
           </div>
         </motion.div>
+
+        <motion.dl
+          initial={{ opacity: 0 }}
+          animate={ready ? { opacity: 1 } : {}}
+          transition={{ delay: 0.9, duration: 0.8 }}
+          className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-4"
+        >
+          {stats.map((s) => (
+            <div key={s.label} className="bg-obsidian/80 p-4 backdrop-blur sm:p-6">
+              <dt className="sr-only">{s.label}</dt>
+              <dd>
+                <CountUp
+                  to={s.to}
+                  decimals={s.decimals}
+                  suffix={s.suffix}
+                  className="font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl"
+                />
+                <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-slate-500">{s.label}</p>
+              </dd>
+            </div>
+          ))}
+        </motion.dl>
       </div>
+
+      <a
+        href="#manifesto"
+        aria-label="Scroll to manifesto"
+        className="absolute bottom-4 left-1/2 hidden -translate-x-1/2 text-slate-500 transition hover:text-white lg:block"
+      >
+        <ArrowDown className="h-5 w-5 animate-bounce" />
+      </a>
     </section>
   );
 }

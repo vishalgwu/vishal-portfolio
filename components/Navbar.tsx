@@ -2,15 +2,23 @@
 
 import { useEffect, useState } from "react";
 import { Menu, Sparkles, X } from "lucide-react";
-import { Github } from "./icons";
 import { motion, AnimatePresence } from "framer-motion";
+import { Github } from "./icons";
+import Logo from "./Logo";
 import { cn } from "@/lib/utils";
-import { categories, profile } from "@/lib/data";
+import { profile } from "@/lib/data";
 
 interface NavbarProps {
   onRecruiter: () => void;
   recruiterOpen: boolean;
 }
+
+const links = [
+  { href: "#manifesto", label: "Manifesto" },
+  { href: "#principles", label: "Principles" },
+  { href: "#catalog", label: "Catalog" },
+  { href: "#contact", label: "Contact" },
+];
 
 export default function Navbar({ onRecruiter, recruiterOpen }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
@@ -31,23 +39,18 @@ export default function Navbar({ onRecruiter, recruiterOpen }: NavbarProps) {
       )}
     >
       <nav className="mx-auto flex h-16 max-w-[1800px] items-center justify-between px-4 sm:px-6 lg:px-10">
-        <a href="#top" className="group flex items-center gap-2 font-mono text-sm font-semibold tracking-tight">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-cyber to-electric text-xs font-bold text-white shadow-[0_0_20px_rgba(6,182,212,0.5)]">
-            VF
-          </span>
-          <span className="hidden text-slate-100 sm:inline">
-            vishal<span className="text-cyber">.</span>dev
+        <a href="#top" data-cursor="Home" className="flex items-center gap-3" aria-label="Vishal Fulsundar, home">
+          <Logo size={34} />
+          <span className="hidden font-display text-sm font-bold uppercase tracking-[0.2em] text-white sm:inline">
+            Vishal Fulsundar
           </span>
         </a>
 
         <ul className="hidden items-center gap-1 lg:flex">
-          {categories.map((c) => (
-            <li key={c.id}>
-              <a
-                href={`#row-${c.id}`}
-                className="rounded-full px-3 py-1.5 text-xs font-medium text-slate-400 transition hover:bg-white/5 hover:text-white"
-              >
-                {c.emoji} {c.title.split(",")[0].split(" & ")[0]}
+          {links.map((l) => (
+            <li key={l.href}>
+              <a href={l.href} className="rounded-full px-4 py-2 text-sm font-medium text-slate-400 transition hover:bg-white/5 hover:text-white">
+                {l.label}
               </a>
             </li>
           ))}
@@ -97,27 +100,13 @@ export default function Navbar({ onRecruiter, recruiterOpen }: NavbarProps) {
             className="overflow-hidden border-b border-white/10 bg-obsidian/95 backdrop-blur-xl lg:hidden"
           >
             <ul className="space-y-1 px-4 py-3">
-              {categories.map((c) => (
-                <li key={c.id}>
-                  <a
-                    href={`#row-${c.id}`}
-                    onClick={() => setMenu(false)}
-                    className="block rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/5"
-                  >
-                    {c.emoji} {c.title}
+              {links.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} onClick={() => setMenu(false)} className="block rounded-lg px-3 py-3 font-display text-lg font-semibold text-slate-200 hover:bg-white/5">
+                    {l.label}
                   </a>
                 </li>
               ))}
-              <li>
-                <a
-                  href={profile.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block rounded-lg px-3 py-2 text-sm text-slate-300 hover:bg-white/5"
-                >
-                  GitHub
-                </a>
-              </li>
             </ul>
           </motion.div>
         )}

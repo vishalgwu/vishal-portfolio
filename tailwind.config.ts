@@ -26,6 +26,7 @@ const config: Config = {
         radiant: "#f43f5e",
       },
       fontFamily: {
+        display: ["var(--font-display)", "var(--font-jakarta)", "system-ui", "sans-serif"],
         sans: ["var(--font-jakarta)", "var(--font-inter)", "system-ui", "sans-serif"],
         mono: ["var(--font-jetbrains)", "ui-monospace", "monospace"],
       },
@@ -35,6 +36,7 @@ const config: Config = {
           "0%, 100%": { transform: "translate3d(0,0,0) scale(1)" },
           "50%": { transform: "translate3d(2%, -3%, 0) scale(1.08)" },
         },
+        marquee: { "0%": { transform: "translateX(0)" }, "100%": { transform: "translateX(-100%)" } },
         shimmer: {
           "0%": { backgroundPosition: "0% 50%" },
           "100%": { backgroundPosition: "200% 50%" },
@@ -44,6 +46,7 @@ const config: Config = {
         blink: "blink 1s steps(1) infinite",
         float: "float 14s ease-in-out infinite",
         shimmer: "shimmer 6s linear infinite",
+        marquee: "marquee 45s linear infinite",
       },
     },
   },

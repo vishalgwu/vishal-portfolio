@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Star } from "lucide-react";
 import type { KeyboardEvent, MouseEvent } from "react";
 import { accentHex } from "@/lib/data";
@@ -23,8 +23,14 @@ export default function ProjectCard({ project, layoutPrefix, onOpen }: ProjectCa
   const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [7, -7]), { stiffness: 220, damping: 20 });
   const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-9, 9]), { stiffness: 220, damping: 20 });
 
+  const px = useMotionValue(-200);
+  const py = useMotionValue(-200);
+  const spot = useMotionTemplate`radial-gradient(200px circle at ${px}px ${py}px, rgba(255,255,255,0.16), transparent 70%)`;
+
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
+    px.set(e.clientX - rect.left);
+    py.set(e.clientY - rect.top);
     mx.set((e.clientX - rect.left) / rect.width - 0.5);
     my.set((e.clientY - rect.top) / rect.height - 0.5);
   };
@@ -49,6 +55,7 @@ export default function ProjectCard({ project, layoutPrefix, onOpen }: ProjectCa
         role="button"
         tabIndex={0}
         aria-label={`Open ${project.title}`}
+        data-cursor="Open"
         onClick={() => onOpen(project, layoutId)}
         onKeyDown={onKey}
         onMouseMove={onMove}
@@ -82,6 +89,12 @@ export default function ProjectCard({ project, layoutPrefix, onOpen }: ProjectCa
             </span>
           ))}
         </div>
+
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{ background: spot }}
+        />
 
         {/* top row */}
         <div className="absolute inset-x-3 top-3 flex items-center justify-between" style={{ transform: "translateZ(30px)" }}>

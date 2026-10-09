@@ -6,12 +6,14 @@ A Netflix-style, dark "Cyber-Obsidian" portfolio for AI systems and data science
 
 ## What's inside
 
-- **Hero** with ambient neon aura, particle canvas background and a terminal typewriter of the real tech stack.
-- **Recruiter 60-Second Snapshot**: a drawer with core competencies, headline metrics, architecture mastery, background and one-click contact (with a countdown bar).
-- **Five Netflix-style rows**: Featured Flagship Systems, Agentic AI / RAG / LLM Infrastructure, Big Data & Analytics, Deep Learning / CV / NLP, Production Microservices & Tools.
-- **Poster cards** with 3D tilt, `scale-105` hover, neon glow and a fading description preview.
-- **Project modal** with a shared-layout transition: overview, metrics, ASCII architecture diagram, engineering challenges, tech pills and repo / demo links.
-- **Search** across titles and tech stack, and a printable **/resume** page (Save as PDF).
+- **Brand identity**: VF monogram that draws itself in an intro splash, Bricolage Grotesque display type, one gradient signature (cyan, violet, rose) on obsidian.
+- **Kinetic hero**: masked headline reveal, rotating word, cursor-following spotlight, magnetic buttons and count-up proof stats.
+- **Tech marquee**: two counter-scrolling rows built from the stacks in the dataset.
+- **Manifesto**: scroll-linked text that lights up word by word.
+- **Four principles**, each backed by a real metric and linked to its project.
+- **Recruiter 60-Second Snapshot**: drawer with competencies, metrics, architecture mastery, background and one-click contact.
+- **The Catalog**: five Netflix-style rows of poster cards (3D tilt, spotlight, glow), a project modal with architecture diagram, and search.
+- **Details**: custom cursor with context labels, scroll progress bar, confetti on copy-email, printable `/resume`.
 
 ## Data
 
