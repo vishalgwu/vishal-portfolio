@@ -68,7 +68,7 @@ function Line({ children, i, ready, className }: { children: React.ReactNode; i:
 const btn = "inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition";
 
 const stats = [
-  { to: 24, suffix: "", decimals: 0, label: "projects across 5 domains" },
+  { to: 25, suffix: "", decimals: 0, label: "projects across 5 domains" },
   { to: 230, suffix: "", decimals: 0, label: "offline tests, HR copilot" },
   { to: 0.71, suffix: "", decimals: 2, label: "AUROC, pre-emission detection" },
   { to: 84, suffix: "%", decimals: 0, label: "recall@5, hybrid RAG" },

@@ -140,6 +140,35 @@
     "architecture": "Browser (Next.js + globe.gl)\n   |\n   v\n[API routes] --auth--> Supabase Auth\n   |        \\\n   |         +--> Supabase Postgres (+ migrations)\n   v\n[Python workers]\n   ingestion | resume parse | embeddings | alerts | audit cleanup\n   |\n   v\nOpenAI structured output + Resend email"
   },
   {
+    "slug": "maryland-ui-pulse",
+    "title": "Maryland UI Pulse",
+    "tagline": "Are Maryland's unemployed paid within 21 days? A live US map, benchmark and forecast",
+    "overview": "An independent analytics project on how quickly Maryland pays first unemployment insurance benefits, benchmarked against every US jurisdiction using public US Department of Labor data. It ships as a live interactive web app with a state map, trend explorer, delay distribution, claims forecast and what-if slider, plus a Power BI report, static dashboards and a Q&A. Maryland pays 72.5% of first payments within 21 days against an 87% federal standard, 48th of 53.",
+    "categories": ["featured", "bigdata"],
+    "accent": "rose",
+    "repo": "https://github.com/vishalgwu/maryland-ui-timeliness",
+    "demo": "https://maryland-ui-pulse.vercel.app",
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-10-20",
+    "status": "Live on Vercel",
+    "stack": ["Python", "pandas", "Plotly", "d3", "Chart.js", "Power BI (TMDL + DAX)", "Vercel", "GitHub Actions"],
+    "metrics": [
+      { "label": "On time within 21 days", "value": "72.5% vs 87% standard" },
+      { "label": "Rank among jurisdictions", "value": "48 of 53" },
+      { "label": "Short of the standard", "value": "9,015 payments a year" },
+      { "label": "Claims forecast error", "value": "5.7% (13-week backtest)" }
+    ],
+    "challenges": [
+      "Working out an undocumented federal file: the ETA 9050 column layout had to be inferred, and an early double-count was caught by checking against the Department's own published chart (Maryland 69.3% and US 83.4% for 2025, 14.1% in June 2020).",
+      "Separating volume from lateness: late payments average about 1,600 a month whether claims rise or fall (correlation 0.01), which points to process bottlenecks rather than intake capacity.",
+      "Being honest about what public data cannot show: backdating cannot be separated from agency delay, correlations are descriptive, and the forecast is illustrative.",
+      "One pipeline, several audiences: a live web app, a Power BI project and .pbix, static dashboards and state maps, all rebuilt from two public files, with a tone that treats the Department's challenges as context, not blame."
+    ],
+    "architecture": "US DOL ETA 9050 + ETA 539 (public CSVs)\n   |\n   v\n[Python pipeline] pandas -> clean datasets, checked against MD Labor's own published chart\n   |\n   +--> [Analytics] peer benchmark | seasonality | claims forecast | recovery trajectory\n   |\n   +--> [Plotly] US and Mid-Atlantic state maps\n   |\n   +--> [Power BI project] TMDL model + DAX + 3-page report (.pbix)\n   |\n   v\n[Web app] d3 map + Chart.js, static site on Vercel (auto-deploys on push)",
+    "secondary": { "label": "Power BI report", "url": "https://github.com/vishalgwu/maryland-ui-timeliness/tree/main/powerbi" }
+  },
+  {
     "slug": "image-caption-generator",
     "title": "Fashion Image Caption Generator",
     "tagline": "48M-parameter captioner that beats larger zero-shot VLMs on garment attributes",
