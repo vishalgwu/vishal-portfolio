@@ -169,6 +169,35 @@
     "secondary": { "label": "Power BI report", "url": "https://github.com/vishalgwu/maryland-ui-timeliness/tree/main/powerbi" }
   },
   {
+    "slug": "ai-engineering-roadmap-2026",
+    "title": "AI Engineering Roadmap 2026",
+    "tagline": "A 19-chapter, code-first guide to production AI engineering, delivered as a Netflix-style reading app",
+    "overview": "An open-source guide to building reliable, measurable and secure LLM systems: 19 chapters and 187 concept sections covering prompting, structured output, embeddings and RAG, evaluation, agents, fine-tuning, serving, safety and CI/CD. Every concept follows one four-part arc (deep dive, cross-connections, production anti-patterns, minimal working code). It ships as Markdown, per-chapter PDFs and a zero-dependency streaming-style web app with role-based profiles, a resume-where-you-left-off reader, My List and search. A structural audit and a published cross-check report document what is verified and what is not.",
+    "categories": ["featured", "agentic"],
+    "accent": "violet",
+    "repo": "https://github.com/vishalgwu/ultimate-ai-engineering-roadmap-2026",
+    "demo": "https://ai-engineering-roadmap-2026-omega.vercel.app",
+    "language": "Markdown / Python",
+    "stars": 0,
+    "updated": "2026-10-22",
+    "status": "Live on Vercel",
+    "stack": ["Markdown", "Python", "xhtml2pdf", "Vanilla JS", "Mermaid", "Vercel", "GitHub"],
+    "metrics": [
+      { "label": "Scope", "value": "19 chapters, 187 concept sections" },
+      { "label": "Code examples", "value": "271 blocks, ~50k words" },
+      { "label": "Executed in a clean directory", "value": "144 sections ran cleanly" },
+      { "label": "Structural audit", "value": "0 issues across 19 chapters" }
+    ],
+    "challenges": [
+      "Keeping 'comprehensive' honest: the audit script enforces the four-part format, parses every Python block and checks about 170 required concepts, but it cannot judge correctness, so the repo ships a CROSSCHECK.md listing what is unexecuted, thin or perishable instead of claiming completeness.",
+      "Making code claims verifiable: every section that needs only the standard library or NumPy was executed in a clean directory (144 ran). Two apparent failures turned out to be artifacts of running via python -c, and 35 library-dependent sections are syntax-checked only, which the README says plainly.",
+      "A reading experience that does not need a framework: chapters render client-side, poster art is generated as seeded SVG graphs, and progress lives in localStorage with no tracking. A Vercel deployment-protection setting and a git-triggered build from the wrong root directory briefly caused a 404 and had to be diagnosed and fixed.",
+      "One source of truth: Markdown chapters feed the PDFs, the audit and the site data through scripts, so the three outputs cannot drift apart."
+    ],
+    "architecture": "chapters/*.md (source of truth)\n   |\n   +--> [audit.py] four-part structure | ast-parsed code | required-concept checklist\n   |\n   +--> [build_pdfs.py] markdown + xhtml2pdf -> pdfs/\n   |\n   +--> [build_site_data.py] chapters + PDFs + section index -> site/data.js\n   |\n   v\n[Static web app] profiles | hero | rows | reader (resume) | search\n   |\n   v\nVercel (static, security + cache headers)",
+    "secondary": { "label": "Cross-check report", "url": "https://github.com/vishalgwu/ultimate-ai-engineering-roadmap-2026/blob/main/CROSSCHECK.md" }
+  },
+  {
     "slug": "image-caption-generator",
     "title": "Fashion Image Caption Generator",
     "tagline": "48M-parameter captioner that beats larger zero-shot VLMs on garment attributes",
