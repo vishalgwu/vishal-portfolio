@@ -1,37 +1,32 @@
 import raw from "@/data/projects.json";
-import type { Accent, Category, CategoryId, Project } from "./types";
+import type { Category, CategoryId, Project } from "./types";
 
 export const projects = raw as Project[];
 
 export const categories: Category[] = [
   {
     id: "featured",
-    emoji: "🌟",
-    title: "Featured Flagship Systems",
+    title: "Featured",
     blurb: "The highest-impact builds: governed agents, agentic RAG, research and live products.",
   },
   {
     id: "agentic",
-    emoji: "🤖",
-    title: "Agentic AI, RAG & LLM Infrastructure",
+    title: "Agentic AI & RAG",
     blurb: "LangGraph, MCP, Qdrant, Pinecone, LlamaIndex and FastAPI wired into agents that can be audited.",
   },
   {
     id: "bigdata",
-    emoji: "⚡",
-    title: "Big Data & Distributed Analytics",
+    title: "Big data & analytics",
     blurb: "Large-scale exploratory and spatial analysis: tracking data, loans, crime, incidents and SQL.",
   },
   {
     id: "deeplearning",
-    emoji: "🧠",
-    title: "Deep Learning, Computer Vision & NLP",
+    title: "Deep learning & NLP",
     blurb: "PyTorch models, vision-language comparisons and interpretability research on transformers.",
   },
   {
     id: "microservices",
-    emoji: "📦",
-    title: "Production Microservices, Tools & Utilities",
+    title: "MLOps, services & tools",
     blurb: "Docker, serverless AWS, MLOps curricula and typed, tested service boundaries.",
   },
 ];
@@ -39,13 +34,6 @@ export const categories: Category[] = [
 export function projectsFor(id: CategoryId): Project[] {
   return projects.filter((p) => p.categories.includes(id));
 }
-
-export const accentHex: Record<Accent, string> = {
-  cyan: "#06b6d4",
-  violet: "#8b5cf6",
-  emerald: "#10b981",
-  rose: "#f43f5e",
-};
 
 export const profile = {
   name: "Vishal Fulsundar",

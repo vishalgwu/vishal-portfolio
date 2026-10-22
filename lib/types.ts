@@ -29,12 +29,12 @@ export interface Project {
   metrics: Metric[];
   challenges: string[];
   architecture: string;
+  thumb?: string;
   secondary?: { label: string; url: string };
 }
 
 export interface Category {
   id: CategoryId;
-  emoji: string;
   title: string;
   blurb: string;
 }

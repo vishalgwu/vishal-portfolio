@@ -1,53 +1,27 @@
 import type { Config } from "tailwindcss";
 
+// Calm, near-monochrome palette: warm paper background, white cards, ink text, one blue accent.
 const config: Config = {
-  content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./app/**/*.{js,ts,jsx,tsx,mdx}", "./components/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
-    screens: {
-      xs: "420px",
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1536px",
-      "3xl": "1920px",
-    },
     extend: {
       colors: {
-        obsidian: "#07090e",
-        glass: "#0f172a",
-        charcoal: "#131a29",
-        cyber: "#06b6d4",
-        electric: "#8b5cf6",
-        glow: "#10b981",
-        radiant: "#f43f5e",
+        paper: "#F4F2EE",
+        ink: "#191919",
+        mute: "#5E6670",
+        line: "#E0DFDC",
+        chip: "#F3F2EF",
+        brand: { DEFAULT: "#0A66C2", dark: "#004182", soft: "#E8F3FF" },
       },
       fontFamily: {
-        display: ["var(--font-display)", "var(--font-jakarta)", "system-ui", "sans-serif"],
-        sans: ["var(--font-jakarta)", "var(--font-inter)", "system-ui", "sans-serif"],
-        mono: ["var(--font-jetbrains)", "ui-monospace", "monospace"],
+        sans: ["var(--font-inter)", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+        mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
       },
-      keyframes: {
-        blink: { "0%, 49%": { opacity: "1" }, "50%, 100%": { opacity: "0" } },
-        float: {
-          "0%, 100%": { transform: "translate3d(0,0,0) scale(1)" },
-          "50%": { transform: "translate3d(2%, -3%, 0) scale(1.08)" },
-        },
-        marquee: { "0%": { transform: "translateX(0)" }, "100%": { transform: "translateX(-100%)" } },
-        shimmer: {
-          "0%": { backgroundPosition: "0% 50%" },
-          "100%": { backgroundPosition: "200% 50%" },
-        },
+      boxShadow: {
+        card: "0 0 0 1px rgba(0,0,0,.08)",
+        pop: "0 12px 40px rgba(0,0,0,.22)",
       },
-      animation: {
-        blink: "blink 1s steps(1) infinite",
-        float: "float 14s ease-in-out infinite",
-        shimmer: "shimmer 6s linear infinite",
-        marquee: "marquee 45s linear infinite",
-      },
+      maxWidth: { page: "1128px" },
     },
   },
   plugins: [],
