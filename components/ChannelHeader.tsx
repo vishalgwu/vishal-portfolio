@@ -71,7 +71,7 @@ export default function ChannelHeader({ onTab }: { onTab: (t: TabId) => void }) 
         <span className="absolute right-3 top-3 hidden font-hand text-xl text-white/90 sm:block">drag the stickers ↗</span>
       </div>
 
-      <div className="flex flex-col gap-4 px-1 sm:flex-row sm:items-end">
+      <div className="flex flex-col gap-4 px-1 lg:flex-row lg:items-end">
         <div className="-mt-12 shrink-0 sm:-mt-16 sm:ml-4">
           <div className="hidden sm:block">
             <Avatar size={128} ring />

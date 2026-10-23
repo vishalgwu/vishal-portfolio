@@ -1,3 +1,4 @@
+import { asset } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
 interface AvatarProps {
@@ -6,19 +7,18 @@ interface AvatarProps {
   className?: string;
 }
 
-/** VF initials on the LinkedIn-blue gradient. `ring` adds the "live story" ring. */
+/** Profile photo. `ring` adds the "live story" ring. */
 export default function Avatar({ size = 36, ring = false, className }: AvatarProps) {
   const inner = (
-    <span
-      className={cn(
-        "grid shrink-0 select-none place-items-center rounded-full bg-gradient-to-br from-solid via-[#2f86d9] to-sky font-display font-extrabold text-white",
-        className,
-      )}
-      style={{ width: size, height: size, fontSize: size * 0.38 }}
-      aria-hidden
-    >
-      VF
-    </span>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={asset(size > 56 ? "vishal.jpg" : "vishal-small.jpg")}
+      alt="Vishal Fulsundar"
+      width={size}
+      height={size}
+      className={cn("shrink-0 select-none rounded-full bg-solid object-cover object-top", className)}
+      style={{ width: size, height: size }}
+    />
   );
   if (!ring) return inner;
   return (

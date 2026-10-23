@@ -4,7 +4,10 @@
     "title": "GuardMem AI",
     "tagline": "A memory governance gateway for long-running AI agents",
     "overview": "Every candidate fact an agent wants to remember is intercepted before it becomes durable state. GuardMem extracts structured claims anchored to verbatim source spans, validates them against a tenant ontology, scores confidence and blast-radius risk on separate axes, and then auto-writes, queues for human review, rejects, or escalates. Every decision lands in a hash-chained audit log.",
-    "categories": ["featured", "agentic"],
+    "categories": [
+      "featured",
+      "agentic"
+    ],
     "accent": "violet",
     "repo": "https://github.com/vishalgwu/HGEM",
     "demo": null,
@@ -12,12 +15,35 @@
     "stars": 0,
     "updated": "2026-09-28",
     "status": "In active build",
-    "stack": ["Python 3.12", "FastAPI", "MCP", "PostgreSQL", "Row-Level Security", "Alembic", "NLI", "Presidio", "Docker", "GitHub Actions"],
+    "stack": [
+      "Python 3.12",
+      "FastAPI",
+      "MCP",
+      "PostgreSQL",
+      "Row-Level Security",
+      "Alembic",
+      "NLI",
+      "Presidio",
+      "Docker",
+      "GitHub Actions"
+    ],
     "metrics": [
-      { "label": "Pipeline layers", "value": "3 + decision" },
-      { "label": "Checkpoint B corpus", "value": "238 candidates" },
-      { "label": "Provisional AUROC", "value": "0.643" },
-      { "label": "Surfaces", "value": "MCP + REST + worker" }
+      {
+        "label": "Pipeline layers",
+        "value": "3 + decision"
+      },
+      {
+        "label": "Checkpoint B corpus",
+        "value": "238 candidates"
+      },
+      {
+        "label": "Provisional AUROC",
+        "value": "0.643"
+      },
+      {
+        "label": "Surfaces",
+        "value": "MCP + REST + worker"
+      }
     ],
     "challenges": [
       "Stopping confabulation at the door: no verbatim source span, no write.",
@@ -32,7 +58,10 @@
     "title": "Resident OS",
     "tagline": "AI operations layer for apartment communities, starting with maintenance",
     "overview": "A resident report becomes a safe, cited, policy-checked, human-reviewable dispatch decision with an immutable audit trail. It sits alongside property-management systems such as Yardi and Entrata. The model proposes; deterministic code validates and authorises, and only the orchestrator holds side-effecting tool authority.",
-    "categories": ["featured", "agentic"],
+    "categories": [
+      "featured",
+      "agentic"
+    ],
     "accent": "cyan",
     "repo": "https://github.com/vishalgwu/tento-agents",
     "demo": null,
@@ -40,12 +69,35 @@
     "stars": 0,
     "updated": "2026-09-28",
     "status": "Foundation built, documentation-first",
-    "stack": ["FastAPI", "Next.js 15", "Supabase Postgres", "pgvector", "BM25 hybrid", "BAAI/bge-reranker-v2-m3", "tiktoken", "OpenAPI", "Cloud Run", "Redis"],
+    "stack": [
+      "FastAPI",
+      "Next.js 15",
+      "Supabase Postgres",
+      "pgvector",
+      "BM25 hybrid",
+      "BAAI/bge-reranker-v2-m3",
+      "tiktoken",
+      "OpenAPI",
+      "Cloud Run",
+      "Redis"
+    ],
     "metrics": [
-      { "label": "Retrieval fusion", "value": "30 BM25 + 30 dense" },
-      { "label": "Rerank output", "value": "top 6" },
-      { "label": "Context budget", "value": "8,000 tokens" },
-      { "label": "Eval queries", "value": "50 human-authored" }
+      {
+        "label": "Retrieval fusion",
+        "value": "30 BM25 + 30 dense"
+      },
+      {
+        "label": "Rerank output",
+        "value": "top 6"
+      },
+      {
+        "label": "Context budget",
+        "value": "8,000 tokens"
+      },
+      {
+        "label": "Eval queries",
+        "value": "50 human-authored"
+      }
     ],
     "challenges": [
       "Deterministic life-safety screening that never depends on a model deciding whether to notify a person.",
@@ -60,7 +112,11 @@
     "title": "Enterprise HR Agentic RAG Copilot",
     "tagline": "Agentic RAG that grades its evidence, or refuses to answer",
     "overview": "A Forward Deployed Engineer style project that takes a RAG notebook to a deployable internal HR product. An 11-node LangGraph agent routes, grades retrieved evidence, rewrites queries, falls back to cited web search, and finally declines. Every answer is logged to an audit trail the browser console renders.",
-    "categories": ["featured", "agentic", "microservices"],
+    "categories": [
+      "featured",
+      "agentic",
+      "microservices"
+    ],
     "accent": "emerald",
     "repo": "https://github.com/vishalgwu/Enterprise-HR-Policy-And-Employee-Support-Agentic-Rag-Copilot",
     "demo": null,
@@ -68,12 +124,36 @@
     "stars": 0,
     "updated": "2026-09-09",
     "status": "Implemented; feedback capture pending",
-    "stack": ["LangGraph", "FastAPI", "Pinecone", "OpenAI", "Groq", "Tavily", "SQLite", "LangSmith", "Docker", "Ruff", "pytest"],
+    "stack": [
+      "LangGraph",
+      "FastAPI",
+      "Pinecone",
+      "OpenAI",
+      "Groq",
+      "Tavily",
+      "SQLite",
+      "LangSmith",
+      "Docker",
+      "Ruff",
+      "pytest"
+    ],
     "metrics": [
-      { "label": "Routing + grading", "value": "21 / 21 correct" },
-      { "label": "Offline tests", "value": "230 passing" },
-      { "label": "Corpus", "value": "11 docs / 31 chunks" },
-      { "label": "Relevance gate", "value": "0.15 (OOD peak 0.099)" }
+      {
+        "label": "Routing + grading",
+        "value": "21 / 21 correct"
+      },
+      {
+        "label": "Offline tests",
+        "value": "230 passing"
+      },
+      {
+        "label": "Corpus",
+        "value": "11 docs / 31 chunks"
+      },
+      {
+        "label": "Relevance gate",
+        "value": "0.15 (OOD peak 0.099)"
+      }
     ],
     "challenges": [
       "Making 'internal policy does not cover this' a reachable outcome, not a fallback nobody wired up.",
@@ -88,7 +168,10 @@
     "title": "Latent Instability Diagnostics (LID)",
     "tagline": "Detect LLM hallucinations one token before they are emitted",
     "overview": "Every mainstream hallucination detector is post-hoc. LID measures how sensitive a model's hidden-state manifold is to controlled Gaussian perturbation, flagging a tipping point 1 to 2 tokens ahead of the first hallucinated token. Eight baselines are reproduced behind a unified API for a fair comparison.",
-    "categories": ["featured", "deeplearning"],
+    "categories": [
+      "featured",
+      "deeplearning"
+    ],
     "accent": "rose",
     "repo": "https://github.com/vishalgwu/Latent-Instability-Diagnostics-LID",
     "demo": null,
@@ -96,12 +179,32 @@
     "stars": 0,
     "updated": "2026-08-15",
     "status": "Independent research",
-    "stack": ["PyTorch", "Transformers", "Hydra", "pytest", "GitHub Actions", "TruthfulQA", "8-bit quantization"],
+    "stack": [
+      "PyTorch",
+      "Transformers",
+      "Hydra",
+      "pytest",
+      "GitHub Actions",
+      "TruthfulQA",
+      "8-bit quantization"
+    ],
     "metrics": [
-      { "label": "AUROC (TruthfulQA)", "value": "0.71" },
-      { "label": "Inference overhead", "value": "15-20%" },
-      { "label": "Prompts evaluated", "value": "817" },
-      { "label": "Baselines reproduced", "value": "8" }
+      {
+        "label": "AUROC (TruthfulQA)",
+        "value": "0.71"
+      },
+      {
+        "label": "Inference overhead",
+        "value": "15-20%"
+      },
+      {
+        "label": "Prompts evaluated",
+        "value": "817"
+      },
+      {
+        "label": "Baselines reproduced",
+        "value": "8"
+      }
     ],
     "challenges": [
       "Formalising instability as I(l,t) magnitude divergence plus q(l,t) directional alignment, combined into a composite score Z.",
@@ -116,7 +219,11 @@
     "title": "Jarvis Job Globe",
     "tagline": "Geospatial job discovery on a WebGL globe",
     "overview": "A startup MVP that lets students and early-career candidates explore hiring demand by country and city, understand fit against their resume, and apply through official links. The worker plane parses resumes, generates embeddings and evaluates alerts.",
-    "categories": ["featured", "agentic", "microservices"],
+    "categories": [
+      "featured",
+      "agentic",
+      "microservices"
+    ],
     "accent": "cyan",
     "repo": "https://github.com/vishalgwu/job-globe.com",
     "demo": "https://job-globe-com-web.vercel.app",
@@ -124,12 +231,36 @@
     "stars": 0,
     "updated": "2026-05-12",
     "status": "Controlled-demo MVP, live on Vercel",
-    "stack": ["Next.js", "TypeScript", "globe.gl", "Supabase", "PostgreSQL", "FastAPI", "OpenAI", "Resend", "Docker", "k6", "GitHub Actions"],
+    "stack": [
+      "Next.js",
+      "TypeScript",
+      "globe.gl",
+      "Supabase",
+      "PostgreSQL",
+      "FastAPI",
+      "OpenAI",
+      "Resend",
+      "Docker",
+      "k6",
+      "GitHub Actions"
+    ],
     "metrics": [
-      { "label": "Discovery layers", "value": "Global > Country > City > Job" },
-      { "label": "Compare", "value": "2-4 jobs side by side" },
-      { "label": "Match scoring", "value": "rules + embedding blend" },
-      { "label": "Delivery", "value": "Live demo on Vercel" }
+      {
+        "label": "Discovery layers",
+        "value": "Global > Country > City > Job"
+      },
+      {
+        "label": "Compare",
+        "value": "2-4 jobs side by side"
+      },
+      {
+        "label": "Match scoring",
+        "value": "rules + embedding blend"
+      },
+      {
+        "label": "Delivery",
+        "value": "Live demo on Vercel"
+      }
     ],
     "challenges": [
       "Rendering hiring density on a WebGL globe with a 2D fallback map.",
@@ -140,11 +271,126 @@
     "architecture": "Browser (Next.js + globe.gl)\n   |\n   v\n[API routes] --auth--> Supabase Auth\n   |        \\\n   |         +--> Supabase Postgres (+ migrations)\n   v\n[Python workers]\n   ingestion | resume parse | embeddings | alerts | audit cleanup\n   |\n   v\nOpenAI structured output + Resend email"
   },
   {
+    "slug": "maryland-ui-pulse",
+    "title": "Maryland UI Pulse",
+    "tagline": "Are Maryland's unemployed paid within 21 days? A live US map, benchmark and forecast",
+    "overview": "An independent analytics project on how quickly Maryland pays first unemployment insurance benefits, benchmarked against every US jurisdiction using public US Department of Labor data. It ships as a live interactive web app with a state map, trend explorer, delay distribution, claims forecast and what-if slider, plus a Power BI report, static dashboards and a Q&A. Maryland pays 72.5% of first payments within 21 days against an 87% federal standard, 48th of 53.",
+    "categories": [
+      "featured",
+      "bigdata"
+    ],
+    "accent": "rose",
+    "repo": "https://github.com/vishalgwu/maryland-ui-timeliness",
+    "demo": "https://maryland-ui-pulse.vercel.app",
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-10-20",
+    "status": "Live on Vercel",
+    "stack": [
+      "Python",
+      "pandas",
+      "Plotly",
+      "d3",
+      "Chart.js",
+      "Power BI (TMDL + DAX)",
+      "Vercel",
+      "GitHub Actions"
+    ],
+    "metrics": [
+      {
+        "label": "On time within 21 days",
+        "value": "72.5% vs 87% standard"
+      },
+      {
+        "label": "Rank among jurisdictions",
+        "value": "48 of 53"
+      },
+      {
+        "label": "Short of the standard",
+        "value": "9,015 payments a year"
+      },
+      {
+        "label": "Claims forecast error",
+        "value": "5.7% (13-week backtest)"
+      }
+    ],
+    "challenges": [
+      "Working out an undocumented federal file: the ETA 9050 column layout had to be inferred, and an early double-count was caught by checking against the Department's own published chart (Maryland 69.3% and US 83.4% for 2025, 14.1% in June 2020).",
+      "Separating volume from lateness: late payments average about 1,600 a month whether claims rise or fall (correlation 0.01), which points to process bottlenecks rather than intake capacity.",
+      "Being honest about what public data cannot show: backdating cannot be separated from agency delay, correlations are descriptive, and the forecast is illustrative.",
+      "One pipeline, several audiences: a live web app, a Power BI project and .pbix, static dashboards and state maps, all rebuilt from two public files, with a tone that treats the Department's challenges as context, not blame."
+    ],
+    "architecture": "US DOL ETA 9050 + ETA 539 (public CSVs)\n   |\n   v\n[Python pipeline] pandas -> clean datasets, checked against MD Labor's own published chart\n   |\n   +--> [Analytics] peer benchmark | seasonality | claims forecast | recovery trajectory\n   |\n   +--> [Plotly] US and Mid-Atlantic state maps\n   |\n   +--> [Power BI project] TMDL model + DAX + 3-page report (.pbix)\n   |\n   v\n[Web app] d3 map + Chart.js, static site on Vercel (auto-deploys on push)",
+    "secondary": {
+      "label": "Power BI report",
+      "url": "https://github.com/vishalgwu/maryland-ui-timeliness/tree/main/powerbi"
+    }
+  },
+  {
+    "slug": "ai-engineering-roadmap-2026",
+    "title": "AI Engineering Roadmap 2026",
+    "tagline": "A 19-chapter, code-first guide to production AI engineering, delivered as a Netflix-style reading app",
+    "overview": "An open-source guide to building reliable, measurable and secure LLM systems: 19 chapters and 187 concept sections covering prompting, structured output, embeddings and RAG, evaluation, agents, fine-tuning, serving, safety and CI/CD. Every concept follows one four-part arc (deep dive, cross-connections, production anti-patterns, minimal working code). It ships as Markdown, per-chapter PDFs and a zero-dependency streaming-style web app with role-based profiles, a resume-where-you-left-off reader, My List and search. A structural audit and a published cross-check report document what is verified and what is not.",
+    "categories": [
+      "featured",
+      "agentic"
+    ],
+    "accent": "violet",
+    "repo": "https://github.com/vishalgwu/ultimate-ai-engineering-roadmap-2026",
+    "demo": "https://ai-engineering-roadmap-2026-omega.vercel.app",
+    "language": "Markdown / Python",
+    "stars": 0,
+    "updated": "2026-10-22",
+    "status": "Live on Vercel",
+    "stack": [
+      "Markdown",
+      "Python",
+      "xhtml2pdf",
+      "Vanilla JS",
+      "Mermaid",
+      "Vercel",
+      "GitHub"
+    ],
+    "metrics": [
+      {
+        "label": "Scope",
+        "value": "19 chapters, 187 concept sections"
+      },
+      {
+        "label": "Code examples",
+        "value": "271 blocks, ~50k words"
+      },
+      {
+        "label": "Executed in a clean directory",
+        "value": "144 sections ran cleanly"
+      },
+      {
+        "label": "Structural audit",
+        "value": "0 issues across 19 chapters"
+      }
+    ],
+    "challenges": [
+      "Keeping 'comprehensive' honest: the audit script enforces the four-part format, parses every Python block and checks about 170 required concepts, but it cannot judge correctness, so the repo ships a CROSSCHECK.md listing what is unexecuted, thin or perishable instead of claiming completeness.",
+      "Making code claims verifiable: every section that needs only the standard library or NumPy was executed in a clean directory (144 ran). Two apparent failures turned out to be artifacts of running via python -c, and 35 library-dependent sections are syntax-checked only, which the README says plainly.",
+      "A reading experience that does not need a framework: chapters render client-side, poster art is generated as seeded SVG graphs, and progress lives in localStorage with no tracking. A Vercel deployment-protection setting and a git-triggered build from the wrong root directory briefly caused a 404 and had to be diagnosed and fixed.",
+      "One source of truth: Markdown chapters feed the PDFs, the audit and the site data through scripts, so the three outputs cannot drift apart."
+    ],
+    "architecture": "chapters/*.md (source of truth)\n   |\n   +--> [audit.py] four-part structure | ast-parsed code | required-concept checklist\n   |\n   +--> [build_pdfs.py] markdown + xhtml2pdf -> pdfs/\n   |\n   +--> [build_site_data.py] chapters + PDFs + section index -> site/data.js\n   |\n   v\n[Static web app] profiles | hero | rows | reader (resume) | search\n   |\n   v\nVercel (static, security + cache headers)",
+    "secondary": {
+      "label": "Cross-check report",
+      "url": "https://github.com/vishalgwu/ultimate-ai-engineering-roadmap-2026/blob/main/CROSSCHECK.md"
+    },
+    "thumb": "img/roadmap.jpg"
+  },
+  {
     "slug": "image-caption-generator",
     "title": "Fashion Image Caption Generator",
     "tagline": "48M-parameter captioner that beats larger zero-shot VLMs on garment attributes",
     "overview": "A CNN-Transformer encoder-decoder trained from scratch on 45K Myntra fashion images, compared against Qwen2-VL and BLIP-2. A Streamlit dashboard offers caption generation, token-level importance and side-by-side model comparison.",
-    "categories": ["featured", "deeplearning"],
+    "categories": [
+      "featured",
+      "deeplearning"
+    ],
     "accent": "violet",
     "repo": "https://github.com/vishalgwu/Image_caption_generator",
     "demo": null,
@@ -152,12 +398,32 @@
     "stars": 1,
     "updated": "2026-08-15",
     "status": "Complete",
-    "stack": ["PyTorch", "Qwen2-VL", "BLIP-2", "vLLM", "Streamlit", "Parquet", "Cross-attention rollout"],
+    "stack": [
+      "PyTorch",
+      "Qwen2-VL",
+      "BLIP-2",
+      "vLLM",
+      "Streamlit",
+      "Parquet",
+      "Cross-attention rollout"
+    ],
     "metrics": [
-      { "label": "CIDEr", "value": "0.82 (vs 0.44 Qwen2-VL-2B)" },
-      { "label": "Attribute F1", "value": "71%" },
-      { "label": "p95 latency", "value": "1,240 -> 730 ms (-41%)" },
-      { "label": "Throughput", "value": "11 img/s on one A100" }
+      {
+        "label": "CIDEr",
+        "value": "0.82 (vs 0.44 Qwen2-VL-2B)"
+      },
+      {
+        "label": "Attribute F1",
+        "value": "71%"
+      },
+      {
+        "label": "p95 latency",
+        "value": "1,240 -> 730 ms (-41%)"
+      },
+      {
+        "label": "Throughput",
+        "value": "11 img/s on one A100"
+      }
     ],
     "challenges": [
       "Outperforming zero-shot Qwen2-VL-2B and BLIP-2 on catalogue-style attributes with 18x fewer parameters.",
@@ -172,7 +438,10 @@
     "title": "WillDocs RAG",
     "tagline": "Streaming chat over your PDFs with hybrid search and reranking",
     "overview": "A full-stack local RAG system built from scratch with LlamaIndex, Qdrant, FastAPI, Streamlit and Docker. Dense-only search was replaced with BM25-dense fusion via RRF, then reranked with a MiniLM cross-encoder. An embedding-keyed semantic cache trims cost per query.",
-    "categories": ["agentic", "microservices"],
+    "categories": [
+      "agentic",
+      "microservices"
+    ],
     "accent": "emerald",
     "repo": "https://github.com/vishalgwu/Will_Docs",
     "demo": null,
@@ -180,12 +449,34 @@
     "stars": 0,
     "updated": "2026-08-15",
     "status": "Complete",
-    "stack": ["LlamaIndex", "Qdrant", "FastAPI", "SSE", "Streamlit", "Docker", "BM25", "RRF", "MiniLM cross-encoder"],
+    "stack": [
+      "LlamaIndex",
+      "Qdrant",
+      "FastAPI",
+      "SSE",
+      "Streamlit",
+      "Docker",
+      "BM25",
+      "RRF",
+      "MiniLM cross-encoder"
+    ],
     "metrics": [
-      { "label": "recall@5", "value": "71% -> 84%" },
-      { "label": "p95 retrieval", "value": "240 ms" },
-      { "label": "p95 time-to-first-token", "value": "1.4 s" },
-      { "label": "Cost per query", "value": "-31% via semantic cache" }
+      {
+        "label": "recall@5",
+        "value": "71% -> 84%"
+      },
+      {
+        "label": "p95 retrieval",
+        "value": "240 ms"
+      },
+      {
+        "label": "p95 time-to-first-token",
+        "value": "1.4 s"
+      },
+      {
+        "label": "Cost per query",
+        "value": "-31% via semantic cache"
+      }
     ],
     "challenges": [
       "Serving 3,400 chunks from 120 mixed-format documents under 5 concurrent users on a shared CPU.",
@@ -199,7 +490,10 @@
     "title": "Human-Gated External Memory (HGEM)",
     "tagline": "Does unfiltered memory cause reasoning drift in LLM agents?",
     "overview": "A research programme testing whether restricting long-term memory to human-validated reasoning states lowers Constraint Violation Rate and Reasoning Drift Index. Memory is split into immutable laws, human-gated graph nodes and a five-turn ephemeral window, with random-gate and adversarial ablations.",
-    "categories": ["deeplearning", "agentic"],
+    "categories": [
+      "deeplearning",
+      "agentic"
+    ],
     "accent": "violet",
     "repo": "https://github.com/vishalgwu/Human-Gated-External-Memory-HGEM",
     "demo": null,
@@ -207,12 +501,33 @@
     "stars": 0,
     "updated": "2026-05-10",
     "status": "Setup and dataset pipeline complete; experiments not started",
-    "stack": ["Neo4j", "PostgreSQL", "Redis", "ChromaDB", "sentence-transformers", "statsmodels", "pingouin", "Docker"],
+    "stack": [
+      "Neo4j",
+      "PostgreSQL",
+      "Redis",
+      "ChromaDB",
+      "sentence-transformers",
+      "statsmodels",
+      "pingouin",
+      "Docker"
+    ],
     "metrics": [
-      { "label": "Experimental conditions", "value": "10 (C1 to C-ADV)" },
-      { "label": "Memory tiers", "value": "T1 / T2 / T3" },
-      { "label": "Ablations", "value": "random-gate, 2x2 graph vs gating" },
-      { "label": "Stage", "value": "Pipeline built; results pending" }
+      {
+        "label": "Experimental conditions",
+        "value": "10 (C1 to C-ADV)"
+      },
+      {
+        "label": "Memory tiers",
+        "value": "T1 / T2 / T3"
+      },
+      {
+        "label": "Ablations",
+        "value": "random-gate, 2x2 graph vs gating"
+      },
+      {
+        "label": "Stage",
+        "value": "Pipeline built; results pending"
+      }
     ],
     "challenges": [
       "Designing a 2x2 ablation that separates storage structure from human gating.",
@@ -226,7 +541,9 @@
     "title": "RAG Hallucination Detection",
     "tagline": "Predicting whether external context shifts a model's internal belief",
     "overview": "Streaming detection of hallucinations in retrieval-augmented generation using internal signals. Seven signal extractors feed a hallucination score, with token-level annotations and real-time intervention experiments across 1,500 curated examples.",
-    "categories": ["deeplearning"],
+    "categories": [
+      "deeplearning"
+    ],
     "accent": "rose",
     "repo": "https://github.com/vishalgwu/RAG-Hallucination-Detection",
     "demo": null,
@@ -234,12 +551,30 @@
     "stars": 0,
     "updated": "2026-04-18",
     "status": "Research in progress",
-    "stack": ["PyTorch", "LLaMA-2-7B", "HotpotQA", "SQuAD v2", "Embedding cache"],
+    "stack": [
+      "PyTorch",
+      "LLaMA-2-7B",
+      "HotpotQA",
+      "SQuAD v2",
+      "Embedding cache"
+    ],
     "metrics": [
-      { "label": "Curated examples", "value": "1,500" },
-      { "label": "Signal extractors", "value": "7" },
-      { "label": "Datasets", "value": "HotpotQA, SQuAD v2" },
-      { "label": "Labels", "value": "token-level" }
+      {
+        "label": "Curated examples",
+        "value": "1,500"
+      },
+      {
+        "label": "Signal extractors",
+        "value": "7"
+      },
+      {
+        "label": "Datasets",
+        "value": "HotpotQA, SQuAD v2"
+      },
+      {
+        "label": "Labels",
+        "value": "token-level"
+      }
     ],
     "challenges": [
       "Turning internal model signals into a calibrated per-token hallucination score.",
@@ -253,7 +588,9 @@
     "title": "Transformer Percolation & RAG Context",
     "tagline": "Phase transitions inside GPT-2 hidden states",
     "overview": "Investigates whether token representations move from fragmented clusters to a single giant connected component as depth increases, and whether prepending RAG context changes that topological signature.",
-    "categories": ["deeplearning"],
+    "categories": [
+      "deeplearning"
+    ],
     "accent": "cyan",
     "repo": "https://github.com/vishalgwu/Transformer-percolation-rag",
     "demo": null,
@@ -261,12 +598,30 @@
     "stars": 0,
     "updated": "2026-03-28",
     "status": "Research notebooks",
-    "stack": ["PyTorch", "GPT-2", "Jupyter", "Graph connectivity", "NumPy"],
+    "stack": [
+      "PyTorch",
+      "GPT-2",
+      "Jupyter",
+      "Graph connectivity",
+      "NumPy"
+    ],
     "metrics": [
-      { "label": "Critical layer", "value": "Layer 11 of 12" },
-      { "label": "Model", "value": "GPT-2" },
-      { "label": "Research questions", "value": "2" },
-      { "label": "Analysis", "value": "threshold-invariant" }
+      {
+        "label": "Critical layer",
+        "value": "Layer 11 of 12"
+      },
+      {
+        "label": "Model",
+        "value": "GPT-2"
+      },
+      {
+        "label": "Research questions",
+        "value": "2"
+      },
+      {
+        "label": "Analysis",
+        "value": "threshold-invariant"
+      }
     ],
     "challenges": [
       "Identifying the percolation transition independent of the similarity threshold chosen.",
@@ -279,7 +634,10 @@
     "title": "Jev Review Classifier",
     "tagline": "One review in, five typed judgments out in a single call",
     "overview": "Multi-attribute e-commerce review classifier on Jev, a System-1 decision model. Sentiment, aspect, rating, escalation and suspicion are evaluated in parallel with calibrated confidence, then routed by confidence thresholds into auto-act, act-with-log or human review.",
-    "categories": ["agentic", "microservices"],
+    "categories": [
+      "agentic",
+      "microservices"
+    ],
     "accent": "emerald",
     "repo": "https://github.com/vishalgwu/jev-review-classifier",
     "demo": null,
@@ -287,12 +645,30 @@
     "stars": 0,
     "updated": "2026-09-27",
     "status": "Complete",
-    "stack": ["Jev (TypeSafe AI)", "Python", "Pandas", "Streamlit", "Schema-constrained output"],
+    "stack": [
+      "Jev (TypeSafe AI)",
+      "Python",
+      "Pandas",
+      "Streamlit",
+      "Schema-constrained output"
+    ],
     "metrics": [
-      { "label": "Attributes per call", "value": "5 in parallel" },
-      { "label": "Auto-act threshold", "value": "confidence >= 0.90" },
-      { "label": "Human review", "value": "confidence < 0.50" },
-      { "label": "Labelled samples", "value": "12 reviews" }
+      {
+        "label": "Attributes per call",
+        "value": "5 in parallel"
+      },
+      {
+        "label": "Auto-act threshold",
+        "value": "confidence >= 0.90"
+      },
+      {
+        "label": "Human review",
+        "value": "confidence < 0.50"
+      },
+      {
+        "label": "Labelled samples",
+        "value": "12 reviews"
+      }
     ],
     "challenges": [
       "Designing atomic typed questions, since the schema is the heart of the system.",
@@ -306,7 +682,9 @@
     "title": "hire.ai",
     "tagline": "Multi-agent hiring platform built in 24 hours at Bitcamp 2026",
     "overview": "Goes beyond the resume: parses resumes, scrapes and evaluates real GitHub code, scores job-role fit, and analyses interview performance from audio. Outputs a match score, strengths, skill gaps and coverage.",
-    "categories": ["agentic"],
+    "categories": [
+      "agentic"
+    ],
     "accent": "rose",
     "repo": "https://github.com/vishalgwu/Bitcamp-Hackathon-2026",
     "demo": null,
@@ -314,12 +692,32 @@
     "stars": 0,
     "updated": "2026-04-14",
     "status": "Hackathon build",
-    "stack": ["Streamlit", "Gemini API", "LLaMA 3.3 (Groq)", "Whisper", "MongoDB", "GitHub API", "bcrypt"],
+    "stack": [
+      "Streamlit",
+      "Gemini API",
+      "LLaMA 3.3 (Groq)",
+      "Whisper",
+      "MongoDB",
+      "GitHub API",
+      "bcrypt"
+    ],
     "metrics": [
-      { "label": "Build time", "value": "24 hours" },
-      { "label": "Agents", "value": "resume, GitHub, fit, interview" },
-      { "label": "Output", "value": "score, strengths, gaps" },
-      { "label": "Event", "value": "Bitcamp 2026" }
+      {
+        "label": "Build time",
+        "value": "24 hours"
+      },
+      {
+        "label": "Agents",
+        "value": "resume, GitHub, fit, interview"
+      },
+      {
+        "label": "Output",
+        "value": "score, strengths, gaps"
+      },
+      {
+        "label": "Event",
+        "value": "Bitcamp 2026"
+      }
     ],
     "challenges": [
       "Extracting meaningful signal from raw GitHub code.",
@@ -333,7 +731,9 @@
     "title": "AI Budget-Aware Travel Planner",
     "tagline": "Async 5-agent graph from natural-language trip to itinerary",
     "overview": "Parses requests like 'fly from Tokyo to Paris with my daughter', then fans out parallel API calls for flights and hotels and uses LLMs for packing lists and budget breakdowns inside a Streamlit app.",
-    "categories": ["agentic"],
+    "categories": [
+      "agentic"
+    ],
     "accent": "cyan",
     "repo": "https://github.com/vishalgwu/Travel_Planner.com",
     "demo": null,
@@ -341,12 +741,33 @@
     "stars": 2,
     "updated": "2026-07-13",
     "status": "Complete",
-    "stack": ["Streamlit", "Gemini 2.5 Pro", "OpenAI", "Mistral", "LLaMA", "RapidAPI", "SerpAPI", "asyncio"],
+    "stack": [
+      "Streamlit",
+      "Gemini 2.5 Pro",
+      "OpenAI",
+      "Mistral",
+      "LLaMA",
+      "RapidAPI",
+      "SerpAPI",
+      "asyncio"
+    ],
     "metrics": [
-      { "label": "End-to-end latency", "value": "1.8 s" },
-      { "label": "Agents", "value": "5, async" },
-      { "label": "Budget tiers", "value": "Basic / Advance / Business" },
-      { "label": "Stars", "value": "2" }
+      {
+        "label": "End-to-end latency",
+        "value": "1.8 s"
+      },
+      {
+        "label": "Agents",
+        "value": "5, async"
+      },
+      {
+        "label": "Budget tiers",
+        "value": "Basic / Advance / Business"
+      },
+      {
+        "label": "Stars",
+        "value": "2"
+      }
     ],
     "challenges": [
       "Extracting origin, dates, party type and budget from free text.",
@@ -359,7 +780,10 @@
     "title": "NBA GPT Assistant",
     "tagline": "Serverless AWS chatbot for NBA questions",
     "overview": "A Streamlit front end calls an API Gateway HTTP endpoint that invokes a Lambda function, which answers with OpenAI GPT. Curated datasets live in S3 and IAM scopes access.",
-    "categories": ["microservices", "agentic"],
+    "categories": [
+      "microservices",
+      "agentic"
+    ],
     "accent": "violet",
     "repo": "https://github.com/vishalgwu/NBA-GPT-Assistant",
     "demo": null,
@@ -367,12 +791,32 @@
     "stars": 1,
     "updated": "2026-05-09",
     "status": "Complete",
-    "stack": ["AWS Lambda", "API Gateway", "Amazon S3", "IAM", "CloudShell", "OpenAI gpt-4o-mini", "Streamlit"],
+    "stack": [
+      "AWS Lambda",
+      "API Gateway",
+      "Amazon S3",
+      "IAM",
+      "CloudShell",
+      "OpenAI gpt-4o-mini",
+      "Streamlit"
+    ],
     "metrics": [
-      { "label": "Backend", "value": "Fully serverless" },
-      { "label": "Model", "value": "gpt-4o-mini" },
-      { "label": "Endpoint", "value": "POST /ask" },
-      { "label": "Storage", "value": "S3 raw + clean" }
+      {
+        "label": "Backend",
+        "value": "Fully serverless"
+      },
+      {
+        "label": "Model",
+        "value": "gpt-4o-mini"
+      },
+      {
+        "label": "Endpoint",
+        "value": "POST /ask"
+      },
+      {
+        "label": "Storage",
+        "value": "S3 raw + clean"
+      }
     ],
     "challenges": [
       "Wiring Lambda, HTTP API and IAM roles for a pay-per-request backend.",
@@ -384,8 +828,11 @@
     "slug": "world-bank-rag",
     "title": "World Bank Data Explorer & RAG Assistant",
     "tagline": "Ask questions of World Bank indicators in plain English",
-    "overview": "Cleans World Bank benchmarking data into Parquet, embeds it into Qdrant, and answers analytical questions with RAG alongside an interactive Streamlit dashboard. A sibling Technica 2025 build adds a 'chat with the data' agent over roughly 150MB of income and demographic data.",
-    "categories": ["agentic", "bigdata"],
+    "overview": "Cleans World Bank benchmarking data into Parquet, embeds it into Qdrant, and answers analytical questions with RAG alongside an interactive Streamlit dashboard.",
+    "categories": [
+      "agentic",
+      "bigdata"
+    ],
     "accent": "emerald",
     "repo": "https://github.com/vishalgwu/Word_bank_2025",
     "demo": null,
@@ -393,12 +840,31 @@
     "stars": 6,
     "updated": "2026-02-28",
     "status": "Hackathon build",
-    "stack": ["Qdrant", "Streamlit", "Parquet", "Pandas", "Embeddings", "LLM RAG"],
+    "stack": [
+      "Qdrant",
+      "Streamlit",
+      "Parquet",
+      "Pandas",
+      "Embeddings",
+      "LLM RAG"
+    ],
     "metrics": [
-      { "label": "Stars", "value": "6" },
-      { "label": "Dataset (Technica)", "value": "~150 MB, 2 Excel files" },
-      { "label": "Storage format", "value": "Parquet" },
-      { "label": "Vector DB", "value": "Qdrant" }
+      {
+        "label": "Stars",
+        "value": "6"
+      },
+      {
+        "label": "Dataset (Technica)",
+        "value": "~150 MB, 2 Excel files"
+      },
+      {
+        "label": "Storage format",
+        "value": "Parquet"
+      },
+      {
+        "label": "Vector DB",
+        "value": "Qdrant"
+      }
     ],
     "challenges": [
       "Turning complex CSV and XLSB navigation into a semantic, searchable knowledge base.",
@@ -411,7 +877,9 @@
     "title": "Washington DC Crime Hotspots",
     "tagline": "Spatial analysis of 3,475 firearm-involved incidents",
     "overview": "Segments firearm-involved incidents across ward, shift and offense type after point-in-polygon assignment, uncovering a shift-specific reversal in DC's gun-offence geography.",
-    "categories": ["bigdata"],
+    "categories": [
+      "bigdata"
+    ],
     "accent": "rose",
     "repo": "https://github.com/vishalgwu/washogton_crime_report-",
     "demo": null,
@@ -419,12 +887,31 @@
     "stars": 0,
     "updated": "2026-08-16",
     "status": "Complete",
-    "stack": ["R", "Python", "Shapefiles", "Point-in-polygon", "Heatmaps", "DC Open Data"],
+    "stack": [
+      "R",
+      "Python",
+      "Shapefiles",
+      "Point-in-polygon",
+      "Heatmaps",
+      "DC Open Data"
+    ],
     "metrics": [
-      { "label": "Incidents segmented", "value": "3,475" },
-      { "label": "Wards 7-8 share", "value": "1,536 (44%)" },
-      { "label": "Ward spread", "value": "21:1 high to low" },
-      { "label": "Ward 1 midnight robbery", "value": "4th -> 1st" }
+      {
+        "label": "Incidents segmented",
+        "value": "3,475"
+      },
+      {
+        "label": "Wards 7-8 share",
+        "value": "1,536 (44%)"
+      },
+      {
+        "label": "Ward spread",
+        "value": "21:1 high to low"
+      },
+      {
+        "label": "Ward 1 midnight robbery",
+        "value": "4th -> 1st"
+      }
     ],
     "challenges": [
       "Joining incident coordinates to ward and neighbourhood-cluster boundaries.",
@@ -437,7 +924,9 @@
     "title": "NFL Big Data Bowl 2025",
     "tagline": "Pre-snap tendencies versus post-snap outcomes from tracking data",
     "overview": "Exploratory and confirmatory analysis of NFL Next Gen Stats tracking data for a Kaggle competition, covering top-player evaluation, home and away win rates and advanced visualisation.",
-    "categories": ["bigdata"],
+    "categories": [
+      "bigdata"
+    ],
     "accent": "cyan",
     "repo": "https://github.com/vishalgwu/NBA-Big-data-analysis",
     "demo": null,
@@ -445,12 +934,30 @@
     "stars": 0,
     "updated": "2025-01-19",
     "status": "Competition entry",
-    "stack": ["Python", "Pandas", "Matplotlib", "Seaborn", "Kaggle"],
+    "stack": [
+      "Python",
+      "Pandas",
+      "Matplotlib",
+      "Seaborn",
+      "Kaggle"
+    ],
     "metrics": [
-      { "label": "Competition", "value": "Kaggle Big Data Bowl" },
-      { "label": "Data", "value": "Next Gen Stats tracking" },
-      { "label": "Approach", "value": "EDA then confirmatory" },
-      { "label": "Focus", "value": "pre-snap vs post-snap" }
+      {
+        "label": "Competition",
+        "value": "Kaggle Big Data Bowl"
+      },
+      {
+        "label": "Data",
+        "value": "Next Gen Stats tracking"
+      },
+      {
+        "label": "Approach",
+        "value": "EDA then confirmatory"
+      },
+      {
+        "label": "Focus",
+        "value": "pre-snap vs post-snap"
+      }
     ],
     "challenges": [
       "Linking pre-snap player alignment to post-snap outcomes at tracking-data scale.",
@@ -463,7 +970,9 @@
     "title": "Fannie Mae Loan Performance",
     "tagline": "Loan-level mortgage delinquency and risk insights",
     "overview": "Analysis of the Fannie Mae Single-Family Loan Performance dataset covering credit performance, delinquency status, credit scores and loan-to-value ratios.",
-    "categories": ["bigdata"],
+    "categories": [
+      "bigdata"
+    ],
     "accent": "emerald",
     "repo": "https://github.com/vishalgwu/loan-Performance",
     "demo": null,
@@ -471,12 +980,29 @@
     "stars": 0,
     "updated": "2025-02-16",
     "status": "Complete",
-    "stack": ["Python", "Jupyter", "Pandas", "Scikit-learn"],
+    "stack": [
+      "Python",
+      "Jupyter",
+      "Pandas",
+      "Scikit-learn"
+    ],
     "metrics": [
-      { "label": "Granularity", "value": "Loan-level" },
-      { "label": "Signals", "value": "delinquency, FICO, LTV" },
-      { "label": "Source", "value": "Fannie Mae" },
-      { "label": "Format", "value": "Notebook report" }
+      {
+        "label": "Granularity",
+        "value": "Loan-level"
+      },
+      {
+        "label": "Signals",
+        "value": "delinquency, FICO, LTV"
+      },
+      {
+        "label": "Source",
+        "value": "Fannie Mae"
+      },
+      {
+        "label": "Format",
+        "value": "Notebook report"
+      }
     ],
     "challenges": [
       "Working with a large loan-level performance dataset tracked over time."
@@ -488,7 +1014,9 @@
     "title": "US Railroad Accident Analysis",
     "tagline": "Highway-rail crossing safety, backed by a literature review",
     "overview": "Data analysis of Kaggle railroad accident and incident data, framed by a literature review on driver behaviour, visibility and warning systems.",
-    "categories": ["bigdata"],
+    "categories": [
+      "bigdata"
+    ],
     "accent": "rose",
     "repo": "https://github.com/vishalgwu/US-train-accident-",
     "demo": null,
@@ -496,12 +1024,29 @@
     "stars": 0,
     "updated": "2025-01-17",
     "status": "Complete",
-    "stack": ["Python", "Pandas", "Matplotlib", "Kaggle"],
+    "stack": [
+      "Python",
+      "Pandas",
+      "Matplotlib",
+      "Kaggle"
+    ],
     "metrics": [
-      { "label": "Source", "value": "Kaggle FRA incident data" },
-      { "label": "Framing", "value": "Literature review" },
-      { "label": "Topic", "value": "Crossing safety" },
-      { "label": "Type", "value": "EDA" }
+      {
+        "label": "Source",
+        "value": "Kaggle FRA incident data"
+      },
+      {
+        "label": "Framing",
+        "value": "Literature review"
+      },
+      {
+        "label": "Topic",
+        "value": "Crossing safety"
+      },
+      {
+        "label": "Type",
+        "value": "EDA"
+      }
     ],
     "challenges": [
       "Connecting incident data to documented risk factors from prior research."
@@ -513,7 +1058,9 @@
     "title": "Traditional NLP for Wine Classification",
     "tagline": "TF-IDF with Logistic Regression, Random Forest and XGBoost",
     "overview": "End-to-end classical NLP pipeline predicting wine variety and colour from roughly 81,000 cleaned reviews.",
-    "categories": ["deeplearning"],
+    "categories": [
+      "deeplearning"
+    ],
     "accent": "violet",
     "repo": "https://github.com/vishalgwu/Traditional-NLP-for-wine-",
     "demo": null,
@@ -521,12 +1068,30 @@
     "stars": 0,
     "updated": "2025-10-09",
     "status": "Complete",
-    "stack": ["scikit-learn", "XGBoost", "TF-IDF", "Bag-of-Words", "Pandas"],
+    "stack": [
+      "scikit-learn",
+      "XGBoost",
+      "TF-IDF",
+      "Bag-of-Words",
+      "Pandas"
+    ],
     "metrics": [
-      { "label": "Reviews", "value": "~81,000 cleaned" },
-      { "label": "Best accuracy", "value": "0.635" },
-      { "label": "Best macro F1", "value": "0.56" },
-      { "label": "Models", "value": "LR, RF, XGBoost" }
+      {
+        "label": "Reviews",
+        "value": "~81,000 cleaned"
+      },
+      {
+        "label": "Best accuracy",
+        "value": "0.635"
+      },
+      {
+        "label": "Best macro F1",
+        "value": "0.56"
+      },
+      {
+        "label": "Models",
+        "value": "LR, RF, XGBoost"
+      }
     ],
     "challenges": [
       "Comparing three model families on a many-class text task with imbalanced varieties."
@@ -536,34 +1101,59 @@
   {
     "slug": "mlops-interview-prep",
     "title": "MLOps Interview Preparation",
-    "tagline": "Zero-to-hero MLOps curriculum with runnable code and failure post-mortems",
-    "overview": "Twelve modules covering the full ML lifecycle: data validation, feature stores, DVC, MLflow registry, CI/CD/CT, Kubernetes and Triton serving, monitoring, and retraining triggers. Each module pairs theory with executable code and staff-level interview answers.",
-    "categories": ["microservices"],
+    "tagline": "Zero-to-hero MLOps curriculum: 22 modules, runnable code and failure post-mortems, as a Flipkart-style reading app",
+    "overview": "A senior-level MLOps curriculum covering the full ML lifecycle: data validation, feature stores, DVC, MLflow registry, CI/CD/CT, Kubernetes and Triton serving, monitoring and retraining triggers. 22 modules and 255 concept episodes pair theory with executable code, failure post-mortems and interview Q&A, and ship as a static web app with role-based profiles, search and a resume-where-you-left-off reader.",
+    "categories": [
+      "featured",
+      "microservices"
+    ],
     "accent": "cyan",
     "repo": "https://github.com/vishalgwu/mlops-interview-preparation",
-    "demo": null,
-    "language": "Markdown",
+    "demo": "https://mlops-interview-preparation.vercel.app",
+    "language": "Markdown / Python",
     "stars": 0,
     "updated": "2026-10-09",
-    "status": "Complete",
-    "stack": ["Docker", "Kubernetes", "FastAPI", "MLflow", "DVC", "Feast", "Prometheus", "Grafana", "GitHub Actions"],
+    "status": "Live on Vercel",
+    "stack": [
+      "Docker",
+      "Kubernetes",
+      "FastAPI",
+      "MLflow",
+      "DVC",
+      "Feast",
+      "Prometheus",
+      "Grafana",
+      "GitHub Actions"
+    ],
     "metrics": [
-      { "label": "Modules", "value": "12" },
-      { "label": "Per module", "value": "theory, code, post-mortems, Q&A" },
-      { "label": "Monitoring", "value": "Prometheus + Grafana" },
-      { "label": "Loop", "value": "continuous training" }
+      {
+        "label": "Scope",
+        "value": "22 modules, 255 concept episodes"
+      },
+      {
+        "label": "Executed in a clean directory",
+        "value": "80 sections ran, 0 failed (32 need third-party libs)"
+      },
+      {
+        "label": "Delivery",
+        "value": "Static site on Vercel + PDFs"
+      }
     ],
     "challenges": [
       "Showing how every module connects into a single loop where monitoring triggers CI/CD/CT."
     ],
-    "architecture": "raw data -> validation -> feature store -> training (DVC)\n                                         |\n                                         v\n                                  MLflow registry\n                                         |\n                                         v\n                   CI/CD/CT -> Kubernetes / Triton serving\n                                         |\n                                         v\n             Prometheus + Evidently monitoring -> retrain trigger"
+    "architecture": "raw data -> validation -> feature store -> training (DVC)\n                                         |\n                                         v\n                                  MLflow registry\n                                         |\n                                         v\n                   CI/CD/CT -> Kubernetes / Triton serving\n                                         |\n                                         v\n             Prometheus + Evidently monitoring -> retrain trigger",
+    "thumb": "img/mlops.jpg"
   },
   {
     "slug": "genai-interview-prep",
     "title": "GenAI Interview Preparation",
     "tagline": "From LLM foundations to a tested production reference agent",
     "overview": "Thirteen expanded study guides, an architecture tree, 52 Mermaid diagrams and 160+ Python samples, culminating in a from-scratch support agent with every layer implemented.",
-    "categories": ["agentic", "microservices"],
+    "categories": [
+      "agentic",
+      "microservices"
+    ],
     "accent": "violet",
     "repo": "https://github.com/vishalgwu/genai-interview-preparation",
     "demo": null,
@@ -571,12 +1161,34 @@
     "stars": 0,
     "updated": "2026-10-09",
     "status": "Complete",
-    "stack": ["PyTorch", "FastAPI", "Pydantic", "LlamaIndex", "Qdrant", "vLLM", "MCP", "LangGraph", "OpenTelemetry"],
+    "stack": [
+      "PyTorch",
+      "FastAPI",
+      "Pydantic",
+      "LlamaIndex",
+      "Qdrant",
+      "vLLM",
+      "MCP",
+      "LangGraph",
+      "OpenTelemetry"
+    ],
     "metrics": [
-      { "label": "Study modules", "value": "13" },
-      { "label": "Mermaid diagrams", "value": "52" },
-      { "label": "Python samples", "value": "160+" },
-      { "label": "Reference agent tests", "value": "30 passing" }
+      {
+        "label": "Study modules",
+        "value": "13"
+      },
+      {
+        "label": "Mermaid diagrams",
+        "value": "52"
+      },
+      {
+        "label": "Python samples",
+        "value": "160+"
+      },
+      {
+        "label": "Reference agent tests",
+        "value": "30 passing"
+      }
     ],
     "challenges": [
       "Covering tool calling, MCP, memory, RAG, reliability, security and evaluation in one coherent curriculum.",
@@ -589,7 +1201,9 @@
     "title": "MLOps Learning Roadmap",
     "tagline": "From Linux and Git fundamentals to monitored production ML",
     "overview": "A hands-on lab documenting the path from reproducible pipelines and experiment tracking to containers, CI/CD, Kubernetes, cloud deployment and monitoring.",
-    "categories": ["microservices"],
+    "categories": [
+      "microservices"
+    ],
     "accent": "emerald",
     "repo": "https://github.com/vishalgwu/mlops-lab",
     "demo": null,
@@ -597,12 +1211,31 @@
     "stars": 0,
     "updated": "2026-09-10",
     "status": "Ongoing",
-    "stack": ["Docker", "Git", "CI/CD", "Kubernetes", "Experiment tracking", "Data versioning"],
+    "stack": [
+      "Docker",
+      "Git",
+      "CI/CD",
+      "Kubernetes",
+      "Experiment tracking",
+      "Data versioning"
+    ],
     "metrics": [
-      { "label": "Coverage", "value": "Linux to monitoring" },
-      { "label": "Lifecycle stages", "value": "12" },
-      { "label": "Style", "value": "hands-on" },
-      { "label": "Goal", "value": "full lifecycle" }
+      {
+        "label": "Coverage",
+        "value": "Linux to monitoring"
+      },
+      {
+        "label": "Lifecycle stages",
+        "value": "12"
+      },
+      {
+        "label": "Style",
+        "value": "hands-on"
+      },
+      {
+        "label": "Goal",
+        "value": "full lifecycle"
+      }
     ],
     "challenges": [
       "Tying individual tools into one lifecycle from data versioning to retraining."
@@ -614,7 +1247,9 @@
     "title": "Netflix SQL Analysis",
     "tagline": "PostgreSQL deep dive on titles, genres and actors",
     "overview": "SQL analysis of Netflix titles: top actors in Indian productions, genre filtering and recent-release queries.",
-    "categories": ["bigdata"],
+    "categories": [
+      "bigdata"
+    ],
     "accent": "rose",
     "repo": "https://github.com/vishalgwu/sql_netflix_project",
     "demo": null,
@@ -622,16 +1257,285 @@
     "stars": 1,
     "updated": "2025-09-19",
     "status": "Complete",
-    "stack": ["PostgreSQL", "SQL", "Window functions"],
+    "stack": [
+      "PostgreSQL",
+      "SQL",
+      "Window functions"
+    ],
     "metrics": [
-      { "label": "Database", "value": "PostgreSQL" },
-      { "label": "Analyses", "value": "actor, genre, recency" },
-      { "label": "Stars", "value": "1" },
-      { "label": "Type", "value": "SQL project" }
+      {
+        "label": "Database",
+        "value": "PostgreSQL"
+      },
+      {
+        "label": "Analyses",
+        "value": "actor, genre, recency"
+      },
+      {
+        "label": "Stars",
+        "value": "1"
+      },
+      {
+        "label": "Type",
+        "value": "SQL project"
+      }
     ],
     "challenges": [
       "Answering multi-attribute questions about people, genres and countries in pure SQL."
     ],
     "architecture": "Netflix titles CSV\n   |\n   v\nPostgreSQL table\n   |\n   v\nSQL: top actors | genre filters | last-10-year releases"
+  },
+  {
+    "slug": "technica-ai-finance-assistant",
+    "title": "Technica 2025 AI Finance Assistant",
+    "tagline": "Multi-agent receipt and bank-statement analysis with tax, compliance and spend summaries",
+    "overview": "A hackathon app where uploaded PDFs or images (receipts, bank statements) are parsed into structured transactions, then passed through a pipeline of agents for extraction, tax deduction, compliance risk and spending summary. A FastAPI backend serves file processing and a RAG question endpoint over a Chroma vector store, and a Streamlit frontend shows each agent in its own tab.",
+    "categories": [
+      "agentic"
+    ],
+    "accent": "cyan",
+    "repo": "https://github.com/vishalgwu/Hackathon-Technica-2025",
+    "demo": null,
+    "language": "Python",
+    "stars": 1,
+    "updated": "2025-12-06",
+    "status": "Hackathon build",
+    "stack": [
+      "Python",
+      "FastAPI",
+      "Streamlit",
+      "LangChain",
+      "Chroma",
+      "sentence-transformers (all-MiniLM-L6-v2)",
+      "OpenAI gpt-4o-mini",
+      "Parquet",
+      "Docker",
+      "supervisord",
+      "Fly.io"
+    ],
+    "metrics": [
+      {
+        "label": "Agents",
+        "value": "Extraction, Classification, Tax, Compliance, Summary, Dispatcher"
+      },
+      {
+        "label": "Tax rules",
+        "value": "Rule table by category (e.g. meals 50%, travel 100%, groceries 0%)"
+      },
+      {
+        "label": "RAG chunking",
+        "value": "800 chars, 150 overlap"
+      },
+      {
+        "label": "Deployment",
+        "value": "Docker + supervisord, fly.toml (Fly.io)"
+      }
+    ],
+    "challenges": [
+      "Getting reliable structured JSON out of LLM extraction: the extraction agent has a repair routine for smart quotes, illegal escapes and partial JSON, with an empty-schema fallback.",
+      "Controlling LLM cost in categorisation by trying keyword rules first and only calling the LLM when no rule matches.",
+      "Keeping advice explainable: deduction percentages and compliance risk scores come from explicit rules, and the LLM is used to explain them.",
+      "Repo hygiene: the README still describes a World Bank dashboard and does not match the code."
+    ],
+    "architecture": "PDF / image upload\n   |\n   v\n[Extraction agent] --> structured transactions (Parquet)\n   |\n   v\n[Classification: keyword rules -> LLM fallback]\n   |\n   +--> [Tax agent: deduction rules]\n   +--> [Compliance agent: rule-based risk score]\n   +--> [Summary agent: monthly / category / merchant totals]\n   |\n   v\nStreamlit tabs   |   /query: Chroma retrieval -> gpt-4o-mini answer"
+  },
+  {
+    "slug": "energy-price-forecasting",
+    "title": "Energy Price Forecasting with Macro and News Signals",
+    "tagline": "WTI crude oil and Henry Hub gas forecasts from FRED indicators and GDELT news features",
+    "overview": "A GWU Data Science capstone comparing ARIMA, SARIMA, SARIMAX, LSTM and CNN+LSTM models across price-only, macro-only, news-only and fused news-plus-macro inputs at daily and monthly frequency. Evaluation is walk-forward, and the repo holds a Streamlit demo, a LaTeX report and a research paper. Built as a two-person team; the repo is a fork of the teammate's, where Vishal made 79 commits.",
+    "categories": [
+      "deeplearning",
+      "bigdata"
+    ],
+    "accent": "emerald",
+    "repo": "https://github.com/vishalgwu/Energy-Price-Forecasting",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-05-09",
+    "status": "Capstone, completed with report",
+    "stack": [
+      "Python",
+      "ARIMA / SARIMA / SARIMAX",
+      "LSTM",
+      "CNN+LSTM",
+      "FRED API",
+      "GDELT",
+      "Streamlit",
+      "LaTeX"
+    ],
+    "metrics": [
+      {
+        "label": "WTI monthly RMSE",
+        "value": "2.921 (news+macro LSTM) vs 6.832 (univariate ARIMA)"
+      },
+      {
+        "label": "Henry Hub monthly RMSE",
+        "value": "1.153, R2 +0.550 (news+macro CNN+LSTM)"
+      },
+      {
+        "label": "Daily SARIMAX MAPE",
+        "value": "below 2.7% on both commodities"
+      },
+      {
+        "label": "Input settings",
+        "value": "price-only, macro, news, news+macro"
+      }
+    ],
+    "challenges": [
+      "Isolating what each information source adds: the report finds GDELT news is weak alone (MAPE 107% for gas with news only) but helps when fused with macro variables.",
+      "Results are mixed rather than uniformly in favour of deep learning: univariate SARIMA has the lower monthly gas RMSE (0.376) and classical daily models are competitive.",
+      "Interpreting short held-out windows, where R2 can go negative because of low variance in the test slice rather than a useless forecast.",
+      "Keeping daily and monthly data aligned (forward-fill, monthly resampling, first differencing for stationarity) under one walk-forward protocol."
+    ],
+    "architecture": "FRED series (WTI, Henry Hub, macro) + GDELT event features\n   |\n   v\n[forward-fill -> resample -> differencing]\n   |\n   v\n[ARIMA / SARIMA / SARIMAX]   [LSTM / CNN+LSTM]\n   |   inputs: price | macro | news | news+macro\n   v\n[walk-forward eval: RMSE, MAE, MAPE, R2]\n   |\n   v\nresults/ + Streamlit demo + report"
+  },
+  {
+    "slug": "yawn-detection-cnn-resnet",
+    "title": "Yawn Detection for Driver Drowsiness",
+    "tagline": "Custom CNN and fine-tuned ResNet18 with Grad-CAM, part of a group drowsiness system",
+    "overview": "Group deep learning project (eye state plus yawn detection) where Vishal's contribution was the yawn-detection module, built as a binary yawn / non-yawn image classifier in PyTorch. He trained a custom CNN and a fine-tuned ImageNet ResNet18 with data augmentation and checked attention with Grad-CAM. The group repo also has a Streamlit demo.",
+    "categories": [
+      "deeplearning"
+    ],
+    "accent": "rose",
+    "repo": "https://github.com/vishalgwu/Driver-Drowsiness-Detection-System-",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2025-09-12",
+    "status": "Course group project, completed",
+    "stack": [
+      "Python",
+      "PyTorch",
+      "ResNet18",
+      "OpenCV",
+      "Grad-CAM",
+      "Streamlit"
+    ],
+    "metrics": [
+      {
+        "label": "Custom CNN",
+        "value": "88% accuracy, macro F1 0.87"
+      },
+      {
+        "label": "ResNet18 (fine-tuned)",
+        "value": "100% precision, recall, F1 (as reported in README)"
+      },
+      {
+        "label": "Augmentation",
+        "value": "flips, rotations, color jitter"
+      },
+      {
+        "label": "Explainability",
+        "value": "Grad-CAM on mouth region"
+      }
+    ],
+    "challenges": [
+      "Yawn detection varies with lighting, head pose and subtle facial movement.",
+      "Perfect ResNet18 scores on a single evaluation should be read cautiously; the README lists a larger and more diverse yawning dataset as future work.",
+      "Static frames miss motion; the README suggests CNN+LSTM temporal modelling as a next step.",
+      "Group project: Vishal owned the yawn module, while the eye module and the rest were done by teammates."
+    ],
+    "architecture": "face images (yawn / non-yawn)\n   |\n   v\n[augmentation: flip, rotate, color jitter]\n   |\n   +--> [custom CNN baseline]\n   +--> [ResNet18 fine-tuned]\n   |\n   v\n[accuracy / precision / recall / F1] + [Grad-CAM]\n   |\n   v\nStreamlit demo (group)"
+  },
+  {
+    "slug": "langgraph-agent-patterns",
+    "title": "LangGraph Agent Patterns",
+    "tagline": "Agentic, Corrective and Self-RAG, SQL and multi-agent workflows with human approval",
+    "overview": "A personal experiment repo implementing several LangGraph workflows: three RAG variants, a SQL agent over a sample employee database, a multi-agent system combining SQL, web search, YouTube search and a calculator, and human-in-the-loop approval with structured outputs. It is a learning playground rather than a product, with no evaluation numbers.",
+    "categories": [
+      "agentic"
+    ],
+    "accent": "violet",
+    "repo": "https://github.com/vishalgwu/LangGraph",
+    "demo": null,
+    "language": "Python",
+    "stars": 0,
+    "updated": "2025-07-16",
+    "status": "Learning playground",
+    "stack": [
+      "Python",
+      "LangGraph",
+      "LangChain",
+      "OpenAI",
+      "Google Gemini",
+      "Tavily",
+      "SQLite"
+    ],
+    "metrics": [
+      {
+        "label": "RAG variants",
+        "value": "Agentic, Corrective, Self-RAG"
+      },
+      {
+        "label": "Multi-agent tools",
+        "value": "SQL, web search, YouTube search, calculator"
+      },
+      {
+        "label": "Human-in-the-loop",
+        "value": "approval before final answer"
+      },
+      {
+        "label": "Structured output",
+        "value": "consistent formatting across runs"
+      }
+    ],
+    "challenges": [
+      "Routing a question to the right tool in the multi-agent graph.",
+      "Recovering from irrelevant retrieval, which Corrective RAG and Self-RAG handle by re-checking or rewriting the query.",
+      "Keeping a human in control with an approval step before answers are finalised.",
+      "Not benchmarked: the repo has no quantified evaluation."
+    ],
+    "architecture": "question\n   |\n   v\n[LangGraph router]\n   |\n   +--> RAG: agentic | corrective | self (query rewrite)\n   +--> tools: SQL | web search | YouTube | calculator\n   |\n   v\n[human approval] --> structured answer"
+  },
+  {
+    "slug": "llmops-interview-prep",
+    "title": "LLMOps Interview Preparation",
+    "tagline": "Production LLMOps curriculum: 20 modules, serving, guardrails, observability and evaluation, as an Amazon-style reading app",
+    "overview": "A senior-level LLMOps curriculum: inference serving (vLLM, TGI, TensorRT-LLM), vector databases, guardrails, tracing and evaluation, agents and MCP, and QLoRA fine-tuning triggers. 20 modules and 142 concept episodes include runnable code and staff-level scenarios, and ship as a static web app with role-based profiles and search.",
+    "categories": [
+      "featured",
+      "microservices"
+    ],
+    "accent": "cyan",
+    "repo": "https://github.com/vishalgwu/llmops-interview-preparation",
+    "demo": "https://llmops-interview-preparation.vercel.app",
+    "language": "Markdown / Python",
+    "stars": 0,
+    "updated": "2026-10-09",
+    "status": "Live on Vercel",
+    "stack": [
+      "vLLM",
+      "Qdrant",
+      "LangFuse",
+      "OpenTelemetry",
+      "NeMo Guardrails",
+      "LangGraph",
+      "QLoRA",
+      "FastAPI",
+      "Docker",
+      "Kubernetes"
+    ],
+    "metrics": [
+      {
+        "label": "Scope",
+        "value": "20 modules, 142 concept episodes"
+      },
+      {
+        "label": "Executed in a clean directory",
+        "value": "83 sections ran, 0 failed (15 need third-party libs)"
+      },
+      {
+        "label": "Delivery",
+        "value": "Static site on Vercel + PDFs"
+      }
+    ],
+    "challenges": [
+      "Keeping the claims honest: a published cross-check report lists what is executed, syntax-checked only, or perishable."
+    ],
+    "architecture": "request -> guardrails -> semantic cache -> router -> vLLM\n   |                                   |\n   v                                   v\nQdrant retrieval              OpenTelemetry + LangFuse\n                                       |\n                         evaluation -> fine-tuning trigger",
+    "thumb": "img/llmops.jpg"
   }
 ]

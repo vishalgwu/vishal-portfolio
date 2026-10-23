@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import type { Project } from "@/lib/types";
+import { asset } from "@/lib/assets";
 import { badge, emoji, gradients, sticker, thumbTitle } from "@/lib/meta";
 import { cn } from "@/lib/utils";
 
@@ -25,6 +26,10 @@ export default function Thumb({ project, preview = null, className, big = false,
       className={cn("group/thumb relative aspect-video w-full overflow-hidden rounded-xl", className)}
       style={{ background: `linear-gradient(135deg, ${a} 0%, ${b} 100%)` }}
     >
+      {project.thumb && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={asset(project.thumb)} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-top opacity-60 mix-blend-luminosity" />
+      )}
       <div className="dots absolute inset-0 opacity-40 [mask-image:linear-gradient(135deg,black,transparent_70%)]" />
       <div className="absolute -right-6 -top-6 h-28 w-28 rounded-full bg-white/25 blur-2xl" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />

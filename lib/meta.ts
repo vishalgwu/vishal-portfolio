@@ -26,6 +26,13 @@ export const emojiBySlug: Record<string, string> = {
   "genai-interview-prep": "🎓",
   "mlops-lab": "🧰",
   "sql-netflix": "🎬",
+  "maryland-ui-pulse": "📊",
+  "ai-engineering-roadmap-2026": "🗺️",
+  "technica-ai-finance-assistant": "💸",
+  "energy-price-forecasting": "⚡",
+  "yawn-detection-cnn-resnet": "😴",
+  "langgraph-agent-patterns": "🧩",
+  "llmops-interview-prep": "🧱",
 };
 
 /** LinkedIn blue stays the hero; the other gradients are sticker-pastel companions. */
