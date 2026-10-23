@@ -111,7 +111,7 @@
     "slug": "hr-agentic-rag-copilot",
     "title": "Enterprise HR Agentic RAG Copilot",
     "tagline": "Agentic RAG that grades its evidence, or refuses to answer",
-    "overview": "A Forward Deployed Engineer style project that takes a RAG notebook to a deployable internal HR product. An 11-node LangGraph agent routes, grades retrieved evidence, rewrites queries, falls back to cited web search, and finally declines. Every answer is logged to an audit trail the browser console renders.",
+    "overview": "A Forward Deployed Engineer style project that takes a RAG notebook to a deployable internal HR product. An 11-node LangGraph agent routes, grades retrieved evidence, rewrites queries, falls back to cited web search, and finally declines. Around it sit the layers that make it a product rather than a demo: hybrid BM25 + dense retrieval fused by reciprocal rank fusion and re-ranked, a supervisor-worker team of six specialists with handoff and escalation, a ReAct loop over a tool registry, input and output guards with PII redaction, role-based authorization, a human-in-the-loop approval queue, loop budgets, model routing with a cost projection, a semantic cache, SSE streaming and span tracing. Every answer is logged to an audit trail the browser console renders. The public demo runs with no API keys at all - retrieval degrades to BM25 over the policy documents on disk and answers come from an extractive path that cannot invent a number - and a visitor can paste their own OpenAI or Groq key for written answers.",
     "categories": [
       "featured",
       "agentic",
@@ -119,21 +119,24 @@
     ],
     "accent": "emerald",
     "repo": "https://github.com/vishalgwu/Enterprise-HR-Policy-And-Employee-Support-Agentic-Rag-Copilot",
-    "demo": null,
+    "demo": "https://hr-policy-copilot.vercel.app",
     "language": "Python",
     "stars": 0,
-    "updated": "2026-09-09",
-    "status": "Implemented; feedback capture pending",
+    "updated": "2026-10-23",
+    "status": "Live on Vercel; DigitalOcean deploy and feedback capture pending",
     "stack": [
       "LangGraph",
+      "LangChain",
       "FastAPI",
       "Pinecone",
+      "BM25",
       "OpenAI",
       "Groq",
       "Tavily",
       "SQLite",
       "LangSmith",
       "Docker",
+      "Vercel",
       "Ruff",
       "pytest"
     ],
@@ -144,7 +147,7 @@
       },
       {
         "label": "Offline tests",
-        "value": "230 passing"
+        "value": "652 passing"
       },
       {
         "label": "Corpus",
@@ -157,11 +160,11 @@
     ],
     "challenges": [
       "Making 'internal policy does not cover this' a reachable outcome, not a fallback nobody wired up.",
-      "Calibrating the 0.15 relevance gate from a 12-question benchmark so it rejects every out-of-domain chunk and drops no real one.",
-      "Multi-format ingestion (Markdown, TXT, PDF, DOCX with tables) with deterministic chunk IDs and orphan pruning.",
-      "Auditable answers without leaking employee questions to third parties; tracing is redacted by default."
+      "Calibrating the 0.15 relevance gate from a 12-question benchmark so it rejects every out-of-domain chunk and drops no real one - a wrong-source chunk still scored 0.521, which is why an LLM grader sits behind the gate rather than instead of it.",
+      "Keeping the product answerable with no credentials at all, so the degradation ladder ends in an extractive answer that is structurally incapable of inventing a policy number rather than in an apology.",
+      "Finding the failures that were silent: a complexity classifier inverted in both directions at once, and three configuration switches that did nothing - an empty semantic cache was falsy, so the test guarding it skipped both the lookup and the store."
     ],
-    "architecture": "question\n   |\n   v\n[contextualise] -> [route]\n                        |\n          +-------------+--------------+\n          v                            v\n   [retrieve: Pinecone]          [web search: Tavily]\n          |                            |\n          v                            |\n   [grade evidence] --weak--> [rewrite] --retry--+\n          |                                       |\n          v                                       v\n      [answer + citations]  <---- or ---->  [decline]\n          |\n          v\n   SQLite audit log (decision trace, latency)"
+    "architecture": "question\n   |\n   v\n[input guard: injection, PII, secrets]\n   |\n   v\n[semantic cache] --hit--> answer\n   |\n   v\n[route: complexity -> tier -> model]\n   |\n   +------------------+------------------+\n   v                  v                  v\nLangGraph agent   ReAct + tools   Supervisor + 6 workers\n(11 nodes)        (registry)      (handoff, escalation)\n   |                  |                  |\n   +------------- retrieval -------------+\n      BM25 + Pinecone -> RRF -> re-rank\n   |\n   v\n[grade evidence] --weak--> [rewrite] --retry--+\n   |                                          |\n   |  --weak--> [web search: Tavily] --weak--> [decline]\n   v\n[answer + citations]\n   |\n   v\n[output guard: echoed PII, credentials, ungrounded figures]\n   |\n   v\nSQLite audit log (decisions, citations, model, tokens, cost, latency)"
   },
   {
     "slug": "lid",
