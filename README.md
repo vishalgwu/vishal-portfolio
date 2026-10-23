@@ -1,19 +1,20 @@
-# Vishal Fulsundar: Cinematic Portfolio
+# vishal[in] studio: LinkedIn x YouTube portfolio
 
-A Netflix-style, dark "Cyber-Obsidian" portfolio for AI systems and data science projects, built with Next.js 14 (App Router), Tailwind CSS, Framer Motion and Lucide icons.
+A portfolio that looks like a YouTube channel and reads like a LinkedIn profile, in LinkedIn blue with a Gen-Z sticker layer on top. Built with Next.js 14 (App Router), Tailwind CSS, Framer Motion and Lucide icons.
 
 **Live:** https://vishalgwu.github.io/vishal-portfolio/
 
 ## What's inside
 
-- **Brand identity**: VF monogram that draws itself in an intro splash, Bricolage Grotesque display type, one gradient signature (cyan, violet, rose) on obsidian.
-- **Kinetic hero**: masked headline reveal, rotating word, cursor-following spotlight, magnetic buttons and count-up proof stats.
-- **Tech marquee**: two counter-scrolling rows built from the stacks in the dataset.
-- **Manifesto**: scroll-linked text that lights up word by word.
-- **Four principles**, each backed by a real metric and linked to its project.
-- **Recruiter 60-Second Snapshot**: drawer with competencies, metrics, architecture mastery, background and one-click contact.
-- **The Catalog**: five Netflix-style rows of poster cards (3D tilt, spotlight, glow), a project modal with architecture diagram, and search.
-- **Details**: custom cursor with context labels, scroll progress bar, confetti on copy-email, printable `/resume`.
+- **Channel header (LinkedIn profile):** banner with draggable stickers, ringed avatar, headline, Connect / Message / Follow.
+- **YouTube chrome:** top bar with search, collapsible sidebar, mobile bottom nav, channel tabs (Home, Projects, Shorts, Playlists, Posts, About), light and dark theme.
+- **Projects are videos:** thumbnails with a stat badge, hover previews that cycle the project's metrics, topic chips, sorting.
+- **Watch page:** an auto-playing walkthrough with a chaptered scrubber (Overview, Metrics, Architecture, Challenges, Tech stack), keyboard controls, challenges as pinned comments and an Up next rail.
+- **Shorts:** vertical cards, one key number each.
+- **Playlists:** the five themed categories as stacked playlists.
+- **Posts:** a LinkedIn-style feed of experience, research and project drops with Like / Comment / Repost / Send.
+- **Recruiter 60-Second Snapshot:** drawer with competencies, metrics, architecture mastery, background and contact.
+- Printable `/resume`.
 
 ## Data
 
@@ -34,7 +35,7 @@ The site is a static export. When served from a sub-path (GitHub Pages), set `NE
 
 ```
 app/               layout, home page, /resume
-components/        Hero, Navbar, ProjectRow, ProjectCard, ProjectModal, RecruiterMode, BackgroundGlow
+components/        Header, Sidebar, ChannelHeader, VideoCard, Thumb, Watch, RecruiterMode, tabs/
 data/projects.json audited project dataset
 lib/               types, data helpers, profile, cn()
 ```

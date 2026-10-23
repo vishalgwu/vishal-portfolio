@@ -38,3 +38,5 @@ export interface Category {
   title: string;
   blurb: string;
 }
+
+export type TabId = "home" | "projects" | "shorts" | "playlists" | "posts" | "about";

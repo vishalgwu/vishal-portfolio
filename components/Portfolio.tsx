@@ -1,136 +1,145 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
-import { Search, X } from "lucide-react";
-import BackgroundGlow from "./BackgroundGlow";
-import Navbar from "./Navbar";
-import Hero from "./Hero";
-import Intro from "./Intro";
-import Cursor from "./Cursor";
-import Marquee from "./Marquee";
-import Manifesto from "./Manifesto";
-import Principles from "./Principles";
-import ProjectRow from "./ProjectRow";
-import ProjectModal from "./ProjectModal";
+import { useCallback, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
+import BottomNav from "./BottomNav";
+import ChannelHeader from "./ChannelHeader";
+import ChannelTabs from "./ChannelTabs";
+import Watch from "./Watch";
 import RecruiterMode from "./RecruiterMode";
-import Closing from "./Closing";
-import { categories, projects } from "@/lib/data";
-import type { Project } from "@/lib/types";
+import HomeTab from "./tabs/HomeTab";
+import ProjectsTab from "./tabs/ProjectsTab";
+import ShortsTab from "./tabs/ShortsTab";
+import PlaylistsTab from "./tabs/PlaylistsTab";
+import PostsTab from "./tabs/PostsTab";
+import AboutTab from "./tabs/AboutTab";
+import { projects } from "@/lib/data";
+import type { CategoryId, Project, TabId } from "@/lib/types";
+
+const TABS: TabId[] = ["home", "projects", "shorts", "playlists", "posts", "about"];
 
 export default function Portfolio() {
-  const [active, setActive] = useState<{ project: Project; layoutId: string } | null>(null);
-  const [recruiter, setRecruiter] = useState(false);
+  const [tab, setTab] = useState<TabId>("home");
   const [query, setQuery] = useState("");
-  const [ready, setReady] = useState(false);
+  const [filter, setFilter] = useState("all");
+  const [watching, setWatching] = useState<Project | null>(null);
+  const [recruiter, setRecruiter] = useState(false);
+  const [drawer, setDrawer] = useState(false);
+  const [dark, setDark] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.3 });
-
-  const openProject = useCallback((project: Project, layoutId: string) => {
-    setActive({ project, layoutId });
+  // theme: the inline script in layout.tsx already set the class; mirror it into state
+  useEffect(() => {
+    setDark(document.documentElement.classList.contains("dark"));
   }, []);
+
+  const toggleTheme = useCallback(() => {
+    const next = !document.documentElement.classList.contains("dark");
+    document.documentElement.classList.toggle("dark", next);
+    setDark(next);
+    try {
+      localStorage.setItem("vf-theme", next ? "dark" : "light");
+    } catch {
+      /* storage unavailable: the choice just won't persist */
+    }
+  }, []);
+
+  // deep link: #projects, #about, ...
+  useEffect(() => {
+    const h = window.location.hash.replace("#", "") as TabId;
+    if (TABS.includes(h)) setTab(h);
+    const t = setTimeout(() => setLoading(false), 900);
+    return () => clearTimeout(t);
+  }, []);
+
+  const goTab = useCallback((t: TabId) => {
+    setTab(t);
+    try {
+      window.history.replaceState(null, "", `#${t}`);
+    } catch {
+      /* ignore */
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  const onQuery = useCallback(
+    (q: string) => {
+      setQuery(q);
+      if (q.trim() && tab !== "projects" && tab !== "home") goTab("projects");
+    },
+    [tab, goTab],
+  );
+
+  const playlist = useCallback(
+    (c: CategoryId) => {
+      setFilter(c);
+      goTab("projects");
+    },
+    [goTab],
+  );
 
   const openBySlug = useCallback((slug: string) => {
-    const project = projects.find((p) => p.slug === slug);
-    if (project) setActive({ project, layoutId: `recruiter-${slug}` });
+    const p = projects.find((x) => x.slug === slug);
+    if (p) setWatching(p);
   }, []);
 
-  const closeProject = useCallback(() => setActive(null), []);
+  const closeWatch = useCallback(() => setWatching(null), []);
   const closeRecruiter = useCallback(() => setRecruiter(false), []);
-  const onIntroDone = useCallback(() => setReady(true), []);
-
-  const q = query.trim().toLowerCase();
-  const rows = useMemo(
-    () =>
-      categories.map((category) => ({
-        category,
-        items: projects.filter(
-          (p) =>
-            p.categories.includes(category.id) &&
-            (!q ||
-              p.title.toLowerCase().includes(q) ||
-              p.tagline.toLowerCase().includes(q) ||
-              p.stack.some((s) => s.toLowerCase().includes(q))),
-        ),
-      })),
-    [q],
-  );
-  const total = rows.reduce((n, r) => n + r.items.length, 0);
 
   return (
     <>
-      <Intro onDone={onIntroDone} />
-      <Cursor />
-      <BackgroundGlow />
-      <motion.div
-        aria-hidden
-        className="fixed inset-x-0 top-0 z-50 h-[3px] origin-left bg-gradient-to-r from-cyber via-electric to-radiant"
-        style={{ scaleX: progress }}
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            key="buffer"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.85, ease: "easeOut" }}
+            className="fixed inset-x-0 top-0 z-[100] h-[3px] origin-left bg-gradient-to-r from-solid via-sky to-lime"
+          />
+        )}
+      </AnimatePresence>
+
+      <Header
+        query={query}
+        onQuery={onQuery}
+        onMenu={() => setDrawer(true)}
+        onRecruiter={() => setRecruiter(true)}
+        onProfile={() => goTab("about")}
+        dark={dark}
+        onToggleTheme={toggleTheme}
       />
-      <Navbar onRecruiter={() => setRecruiter(true)} recruiterOpen={recruiter} />
+      <Sidebar tab={tab} onTab={goTab} onPlaylist={playlist} open={drawer} onClose={() => setDrawer(false)} />
 
-      <main>
-        <Hero ready={ready} onRecruiter={() => setRecruiter(true)} recruiterOpen={recruiter} />
-        <Marquee />
-        <Manifesto />
-        <Principles onOpenProject={openBySlug} />
+      <main className="relative z-[2] px-4 pb-24 pt-[4.25rem] sm:px-6 lg:pb-12 lg:pl-[16.5rem]">
+        <div className="mx-auto max-w-[1800px]">
+          <ChannelHeader onTab={goTab} />
+          <ChannelTabs tab={tab} onTab={goTab} />
 
-        <section id="catalog" className="scroll-mt-16 pb-16 pt-8">
-          <div className="mx-auto max-w-[1800px] px-4 sm:px-6 lg:px-10">
-            <p className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.28em] text-cyan-300">
-              <span className="h-px w-10 bg-cyber" /> The catalog
-            </p>
-            <h2 className="font-display text-[clamp(2.2rem,6.5vw,6rem)] font-extrabold leading-none tracking-[-0.03em] text-white">
-              {projects.length} projects. <span className="text-slate-500">Pick a genre.</span>
-            </h2>
-
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <label className="glass flex w-full max-w-xl items-center gap-3 rounded-full px-4 py-2.5 focus-within:border-cyber/60">
-                <Search className="h-4 w-4 shrink-0 text-slate-400" />
-                <input
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search by project or tech: LangGraph, PyTorch, Qdrant..."
-                  aria-label="Search projects by title or technology"
-                  className="w-full bg-transparent text-sm text-white placeholder:text-slate-500 focus:outline-none"
-                />
-                {query && (
-                  <button onClick={() => setQuery("")} aria-label="Clear search" className="text-slate-400 hover:text-white">
-                    <X className="h-4 w-4" />
-                  </button>
-                )}
-              </label>
-              <div className="no-scrollbar flex gap-2 overflow-x-auto">
-                {categories.map((c) => (
-                  <a
-                    key={c.id}
-                    href={`#row-${c.id}`}
-                    className="whitespace-nowrap rounded-full border border-white/10 bg-white/5 px-3.5 py-2 text-xs font-medium text-slate-300 transition hover:border-cyber/60 hover:text-white"
-                  >
-                    {c.emoji} {c.title.split(",")[0].split(" & ")[0]}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6 space-y-4">
-            {rows.map(({ category, items }) => (
-              <ProjectRow key={category.id} category={category} projects={items} onOpen={openProject} />
-            ))}
-            {total === 0 && (
-              <p className="px-4 py-16 text-center text-slate-400 sm:px-6">
-                No projects match &ldquo;{query}&rdquo;. Try a framework name like LangGraph or PyTorch.
-              </p>
-            )}
-          </div>
-        </section>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={tab}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.22 }}
+            >
+              {tab === "home" && <HomeTab query={query} onOpen={setWatching} onTab={goTab} onPlaylist={playlist} />}
+              {tab === "projects" && <ProjectsTab query={query} filter={filter} onFilter={setFilter} onOpen={setWatching} />}
+              {tab === "shorts" && <ShortsTab onOpen={setWatching} />}
+              {tab === "playlists" && <PlaylistsTab onPlaylist={playlist} />}
+              {tab === "posts" && <PostsTab onOpen={setWatching} />}
+              {tab === "about" && <AboutTab />}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </main>
 
-      <Closing />
-
-      <ProjectModal project={active?.project ?? null} layoutId={active?.layoutId ?? null} onClose={closeProject} />
+      <BottomNav tab={tab} onTab={goTab} />
+      <Watch project={watching} onClose={closeWatch} onOpen={setWatching} />
       <RecruiterMode open={recruiter} onClose={closeRecruiter} onOpenProject={openBySlug} />
     </>
   );

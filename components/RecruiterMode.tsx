@@ -5,7 +5,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import confetti from "canvas-confetti";
 import { Check, Copy, Download, Mail, Timer, X } from "lucide-react";
 import { Github, Linkedin } from "./icons";
-import { accentHex, profile, projects } from "@/lib/data";
+import Avatar from "./Avatar";
+import { profile, projects } from "@/lib/data";
+import { emoji } from "@/lib/meta";
 
 interface RecruiterModeProps {
   open: boolean;
@@ -14,11 +16,12 @@ interface RecruiterModeProps {
 }
 
 const masteryOrder = ["guardmem", "resident-os", "hr-agentic-rag-copilot", "lid", "willdocs-rag"];
+const tints = ["bg-sky/40", "bg-lime/60", "bg-pink/40", "bg-sun/40", "bg-mint/40", "bg-sky/40"];
 
 function Heading({ n, children }: { n: number; children: string }) {
   return (
-    <h3 className="mb-3 flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
-      <span className="grid h-5 w-5 place-items-center rounded-md bg-cyber/20 text-[10px]">{n}</span>
+    <h3 className="mb-3 flex items-center gap-2 font-display text-lg font-extrabold tracking-tight text-ink">
+      <span className="grid h-6 w-6 place-items-center rounded-md bg-ink text-xs text-bg">{n}</span>
       {children}
     </h3>
   );
@@ -53,13 +56,7 @@ export default function RecruiterMode({ open, onClose, onOpenProject }: Recruite
       /* clipboard unavailable: the mailto link still works */
     }
     setCopied(true);
-    confetti({
-      particleCount: 90,
-      spread: 70,
-      origin: { y: 0.8, x: 0.85 },
-      colors: ["#06b6d4", "#8b5cf6", "#10b981", "#f43f5e"],
-      disableForReducedMotion: true,
-    });
+    confetti({ particleCount: 90, spread: 70, origin: { y: 0.8, x: 0.85 }, colors: ["#0a66c2", "#70b5f9", "#c8f169", "#ff8fc0", "#f5b942"], disableForReducedMotion: true });
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -77,7 +74,7 @@ export default function RecruiterMode({ open, onClose, onOpenProject }: Recruite
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-[60] bg-black/55 backdrop-blur-sm"
           />
           <motion.aside
             key="drawer"
@@ -88,44 +85,48 @@ export default function RecruiterMode({ open, onClose, onOpenProject }: Recruite
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 260, damping: 32 }}
-            className="fixed inset-y-0 right-0 z-[61] flex w-full max-w-xl flex-col border-l border-white/15 bg-glass/95 shadow-[0_0_80px_-10px_rgba(6,182,212,0.5)] backdrop-blur-2xl"
+            className="fixed inset-y-0 right-0 z-[61] flex w-full max-w-xl flex-col bg-bg shadow-2xl"
           >
-            <div className="relative shrink-0 border-b border-white/10 px-5 pb-4 pt-5 sm:px-7">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-emerald-300">Recruiter mode</p>
-                  <h2 className="mt-1 text-xl font-extrabold text-white sm:text-2xl">60-second snapshot</h2>
-                  <p className="text-sm text-slate-400">
-                    {profile.name} · {profile.headline}
-                  </p>
-                </div>
-                <button
-                  onClick={onClose}
-                  aria-label="Close recruiter snapshot"
-                  className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/15 bg-white/5 text-white hover:bg-white/10"
-                >
-                  <X className="h-4 w-4" />
-                </button>
+            <div className="relative shrink-0">
+              <div className="h-20 bg-gradient-to-br from-solid via-[#1f7ad6] to-sky">
+                <div className="dots absolute inset-x-0 top-0 h-20 opacity-50" />
               </div>
-              <div className="mt-4 flex items-center gap-3">
-                <Timer className="h-4 w-4 text-slate-400" />
-                <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/10">
+              <button
+                onClick={onClose}
+                aria-label="Close recruiter snapshot"
+                className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-black/40 text-white hover:bg-black/60"
+              >
+                <X className="h-4 w-4" />
+              </button>
+              <div className="-mt-9 flex items-end gap-3 px-5">
+                <Avatar size={72} ring />
+                <div className="pb-1">
+                  <p className="font-hand text-xl leading-none text-brand">recruiter mode ⚡</p>
+                  <h2 className="font-display text-2xl font-extrabold leading-tight text-ink">60-second snapshot</h2>
+                </div>
+              </div>
+              <p className="px-5 pt-2 text-sm text-ink2">
+                {profile.name} · {profile.headline}
+              </p>
+              <div className="flex items-center gap-3 px-5 pb-4 pt-3">
+                <Timer className="h-4 w-4 text-ink2" />
+                <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-ink/10">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-cyber via-electric to-radiant transition-[width] duration-300 ease-linear"
+                    className="h-full rounded-full bg-gradient-to-r from-solid via-sky to-lime transition-[width] duration-300 ease-linear"
                     style={{ width: `${(elapsed / 60) * 100}%` }}
                   />
                 </div>
-                <span className="w-9 text-right font-mono text-xs text-slate-400">{Math.max(0, 60 - Math.floor(elapsed))}s</span>
+                <span className="w-9 text-right font-mono text-xs text-ink2">{Math.max(0, 60 - Math.floor(elapsed))}s</span>
               </div>
             </div>
 
-            <div className="thin-scroll flex-1 space-y-8 overflow-y-auto px-5 py-6 sm:px-7">
+            <div className="thin-scroll flex-1 space-y-7 overflow-y-auto border-t border-line/10 px-5 py-6">
               <section>
                 <Heading n={1}>Core competencies</Heading>
                 <ul className="space-y-2">
                   {profile.competencies.map((c) => (
-                    <li key={c} className="flex gap-3 text-sm leading-relaxed text-slate-300">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-glow" />
+                    <li key={c} className="flex gap-3 text-sm leading-relaxed text-ink">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-mint" />
                       {c}
                     </li>
                   ))}
@@ -136,20 +137,13 @@ export default function RecruiterMode({ open, onClose, onOpenProject }: Recruite
                 <Heading n={2}>Key performance metrics</Heading>
                 <div className="grid grid-cols-2 gap-3">
                   {profile.headlineMetrics.map((m, i) => (
-                    <div key={m.label} className="rounded-xl border border-white/10 bg-white/5 p-3">
-                      <p
-                        className="text-xl font-extrabold"
-                        style={{ color: Object.values(accentHex)[i % 4] }}
-                      >
-                        {m.value}
-                      </p>
-                      <p className="mt-0.5 text-[11px] leading-snug text-slate-400">{m.label}</p>
+                    <div key={m.label} className={`rounded-2xl p-3 ${tints[i]}`}>
+                      <p className="font-display text-2xl font-extrabold text-black">{m.value}</p>
+                      <p className="mt-0.5 text-[11px] font-semibold leading-snug text-black/70">{m.label}</p>
                     </div>
                   ))}
                 </div>
-                <p className="mt-2 text-[11px] text-slate-500">
-                  Figures are taken from each repository&apos;s README; open the project for context and caveats.
-                </p>
+                <p className="mt-2 text-[11px] text-ink2">Figures come from each repository&apos;s README; open the video for context and caveats.</p>
               </section>
 
               <section>
@@ -160,18 +154,20 @@ export default function RecruiterMode({ open, onClose, onOpenProject }: Recruite
                       key={p.slug}
                       onClick={() => {
                         onClose();
-                        setTimeout(() => onOpenProject(p.slug), 350);
+                        setTimeout(() => onOpenProject(p.slug), 300);
                       }}
-                      className="group w-full rounded-xl border border-white/10 bg-white/5 p-3 text-left transition hover:border-cyber/60 hover:bg-white/10"
+                      className="group w-full rounded-2xl border border-line/10 bg-surface p-3 text-left transition hover:border-solid"
                     >
                       <div className="flex items-center justify-between gap-3">
-                        <span className="font-semibold text-white">{p.title}</span>
-                        <span className="font-mono text-[10px] text-slate-500 group-hover:text-cyan-300">open →</span>
+                        <span className="font-bold text-ink">
+                          {emoji(p)} {p.title}
+                        </span>
+                        <span className="font-mono text-[10px] text-ink2 group-hover:text-brand">watch →</span>
                       </div>
-                      <p className="mt-0.5 text-xs text-slate-400">{p.tagline}</p>
+                      <p className="mt-0.5 text-xs text-ink2">{p.tagline}</p>
                       <div className="mt-2 flex flex-wrap gap-1.5">
                         {p.stack.slice(0, 5).map((s) => (
-                          <span key={s} className="rounded-full border border-white/10 px-2 py-0.5 font-mono text-[10px] text-slate-300">
+                          <span key={s} className="rounded-full bg-ink/10 px-2 py-0.5 text-[10px] font-semibold text-ink">
                             {s}
                           </span>
                         ))}
@@ -183,11 +179,11 @@ export default function RecruiterMode({ open, onClose, onOpenProject }: Recruite
 
               <section>
                 <Heading n={4}>Background</Heading>
-                <p className="text-sm text-slate-300">{profile.degree}</p>
+                <p className="text-sm text-ink">{profile.degree}</p>
                 <ul className="mt-3 space-y-2">
                   {profile.experience.map((e) => (
-                    <li key={e.org} className="text-sm text-slate-400">
-                      <span className="font-semibold text-slate-200">
+                    <li key={e.org} className="text-sm text-ink2">
+                      <span className="font-bold text-ink">
                         {e.role}, {e.org}.
                       </span>{" "}
                       {e.detail}
@@ -199,44 +195,29 @@ export default function RecruiterMode({ open, onClose, onOpenProject }: Recruite
               <section className="pb-4">
                 <Heading n={5}>Direct contact</Heading>
                 <div className="grid gap-2 sm:grid-cols-2">
-                  <button
-                    onClick={copyEmail}
-                    className="flex items-center justify-between gap-2 rounded-xl border border-cyber/40 bg-cyber/10 px-4 py-3 text-left text-sm font-semibold text-cyan-100 transition hover:bg-cyber/20 sm:col-span-2"
-                  >
+                  <button onClick={copyEmail} className="pop-btn flex items-center justify-between gap-2 rounded-xl bg-lime px-4 py-3 text-left text-sm sm:col-span-2">
                     <span className="flex min-w-0 items-center gap-2">
                       <Mail className="h-4 w-4 shrink-0" />
                       <span className="truncate">{profile.email}</span>
                     </span>
-                    {copied ? <Check className="h-4 w-4 text-glow" /> : <Copy className="h-4 w-4" />}
+                    {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                   </button>
-                  <a
-                    href={`mailto:${profile.email}`}
-                    className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-200 transition hover:bg-white/10"
-                  >
-                    <Mail className="h-4 w-4" /> Send email
-                  </a>
-                  <a
-                    href={profile.linkedin}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-200 transition hover:bg-white/10"
-                  >
-                    <Linkedin className="h-4 w-4" /> LinkedIn
-                  </a>
-                  <a
-                    href={profile.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-200 transition hover:bg-white/10"
-                  >
-                    <Github className="h-4 w-4" /> GitHub
-                  </a>
-                  <a
-                    href="resume/"
-                    className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-200 transition hover:bg-white/10"
-                  >
-                    <Download className="h-4 w-4" /> Resume (PDF)
-                  </a>
+                  {[
+                    { href: `mailto:${profile.email}`, label: "Send email", Icon: Mail, ext: false },
+                    { href: profile.linkedin, label: "LinkedIn", Icon: Linkedin, ext: true },
+                    { href: profile.github, label: "GitHub", Icon: Github, ext: true },
+                    { href: "resume/", label: "Resume (PDF)", Icon: Download, ext: false },
+                  ].map(({ href, label, Icon, ext }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target={ext ? "_blank" : undefined}
+                      rel="noreferrer"
+                      className="flex items-center gap-2 rounded-xl border border-line/10 bg-surface px-4 py-3 text-sm font-semibold text-ink transition hover:border-solid"
+                    >
+                      <Icon className="h-4 w-4 text-brand" /> {label}
+                    </a>
+                  ))}
                 </div>
               </section>
             </div>

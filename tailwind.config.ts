@@ -1,6 +1,9 @@
 import type { Config } from "tailwindcss";
 
+const v = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+
 const config: Config = {
+  darkMode: "class",
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -17,36 +20,51 @@ const config: Config = {
     },
     extend: {
       colors: {
-        obsidian: "#07090e",
-        glass: "#0f172a",
-        charcoal: "#131a29",
-        cyber: "#06b6d4",
-        electric: "#8b5cf6",
-        glow: "#10b981",
-        radiant: "#f43f5e",
+        bg: v("bg"),
+        surface: v("surface"),
+        surface2: v("surface2"),
+        ink: v("ink"),
+        ink2: v("ink2"),
+        line: v("line"),
+        brand: v("brand"),
+        solid: "#0a66c2",
+        solidhover: "#004182",
+        sky: "#70b5f9",
+        sun: "#f5b942",
+        mint: "#57d29b",
+        pink: "#ff8fc0",
+        lime: "#c8f169",
       },
       fontFamily: {
-        display: ["var(--font-display)", "var(--font-jakarta)", "system-ui", "sans-serif"],
-        sans: ["var(--font-jakarta)", "var(--font-inter)", "system-ui", "sans-serif"],
-        mono: ["var(--font-jetbrains)", "ui-monospace", "monospace"],
+        display: ["var(--font-display)", "var(--font-sans)", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        hand: ["var(--font-hand)", "cursive"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       keyframes: {
-        blink: { "0%, 49%": { opacity: "1" }, "50%, 100%": { opacity: "0" } },
         float: {
           "0%, 100%": { transform: "translate3d(0,0,0) scale(1)" },
-          "50%": { transform: "translate3d(2%, -3%, 0) scale(1.08)" },
+          "50%": { transform: "translate3d(3%, -4%, 0) scale(1.1)" },
         },
-        marquee: { "0%": { transform: "translateX(0)" }, "100%": { transform: "translateX(-100%)" } },
-        shimmer: {
-          "0%": { backgroundPosition: "0% 50%" },
-          "100%": { backgroundPosition: "200% 50%" },
+        wiggle: {
+          "0%, 100%": { transform: "rotate(-4deg)" },
+          "50%": { transform: "rotate(4deg)" },
+        },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+        pop: {
+          "0%": { transform: "scale(0.6)", opacity: "0" },
+          "70%": { transform: "scale(1.12)", opacity: "1" },
+          "100%": { transform: "scale(1)", opacity: "1" },
         },
       },
       animation: {
-        blink: "blink 1s steps(1) infinite",
-        float: "float 14s ease-in-out infinite",
-        shimmer: "shimmer 6s linear infinite",
-        marquee: "marquee 45s linear infinite",
+        float: "float 12s ease-in-out infinite",
+        wiggle: "wiggle 2.4s ease-in-out infinite",
+        marquee: "marquee 40s linear infinite",
+        pop: "pop 0.35s ease-out both",
       },
     },
   },

@@ -2,73 +2,100 @@
 @tailwind components;
 @tailwind utilities;
 
+/* LinkedIn palette: warm paper background, white cards, #0a66c2 brand blue. */
 :root {
-  --obsidian: #07090e;
-  --glass: #0f172a;
-  --charcoal: #131a29;
-  --cyan: #06b6d4;
-  --violet: #8b5cf6;
-  --emerald: #10b981;
-  --rose: #f43f5e;
+  --bg: 244 242 238;
+  --surface: 255 255 255;
+  --surface2: 238 243 248;
+  --ink: 25 25 25;
+  --ink2: 96 100 104;
+  --line: 0 0 0;
+  --brand: 10 102 194;
+}
+
+.dark {
+  --bg: 16 18 20;
+  --surface: 27 31 35;
+  --surface2: 41 48 54;
+  --ink: 255 255 255;
+  --ink2: 160 168 176;
+  --line: 255 255 255;
+  --brand: 113 183 251;
 }
 
 html {
   scroll-behavior: smooth;
-  background: var(--obsidian);
-  color-scheme: dark;
+  background: rgb(var(--bg));
 }
 
 body {
-  background: var(--obsidian);
-  color: #e2e8f0;
+  background: rgb(var(--bg));
+  color: rgb(var(--ink));
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
+/* subtle film grain for the gen-z texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
 ::selection {
-  background: rgba(139, 92, 246, 0.45);
+  background: #0a66c2;
   color: #fff;
 }
 
+@layer components {
+  .card {
+    @apply rounded-2xl border border-line/10 bg-surface;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-ink/5 px-3 py-1.5 text-sm font-semibold text-ink transition hover:bg-ink/10;
+  }
+  .chip-on {
+    @apply bg-ink text-bg hover:bg-ink;
+  }
+  /* hard-shadow "sticker" look */
+  .sticker {
+    @apply inline-flex items-center gap-1 rounded-full border-2 border-black px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wide text-black shadow-[2px_2px_0_#000];
+  }
+  .pop-btn {
+    @apply border-2 border-black font-bold text-black shadow-[3px_3px_0_#000] transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0_#000];
+  }
+}
+
 @layer utilities {
-  .glass {
-    @apply border border-white/10 bg-white/5 backdrop-blur-xl;
-  }
-  .text-gradient {
-    background-image: linear-gradient(90deg, #06b6d4, #8b5cf6, #f43f5e, #06b6d4);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .text-outline {
-    color: transparent;
-    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.55);
-  }
   .no-scrollbar {
     scrollbar-width: none;
   }
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-  .grid-pattern {
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    background-size: 22px 22px;
+  .thin-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--ink) / 0.25) transparent;
   }
-}
-
-.thin-scroll {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
-}
-.thin-scroll::-webkit-scrollbar {
-  width: 6px;
-}
-.thin-scroll::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
+  .thin-scroll::-webkit-scrollbar {
+    width: 8px;
+  }
+  .thin-scroll::-webkit-scrollbar-thumb {
+    background: rgb(var(--ink) / 0.25);
+    border-radius: 999px;
+  }
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.9);
+  }
+  .dots {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.35) 1.2px, transparent 1.2px);
+    background-size: 14px 14px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -90,6 +117,7 @@ body {
     background: #fff !important;
     color: #111 !important;
   }
+  body::before,
   .no-print {
     display: none !important;
   }
