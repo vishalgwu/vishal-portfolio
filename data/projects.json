@@ -55,57 +55,66 @@
   },
   {
     "slug": "resident-os",
-    "title": "Resident OS",
-    "tagline": "AI operations layer for apartment communities, starting with maintenance",
-    "overview": "A resident report becomes a safe, cited, policy-checked, human-reviewable dispatch decision with an immutable audit trail. It sits alongside property-management systems such as Yardi and Entrata. The model proposes; deterministic code validates and authorises, and only the orchestrator holds side-effecting tool authority.",
+    "title": "Tento Resident OS",
+    "tagline": "A deployed GenAI maintenance platform for residents and property teams",
+    "overview": "Built and deployed a multi-tenant maintenance application with four role-based workspaces for residents, maintenance teams, owners and technical administrators. Next.js connects to FastAPI, while LangGraph coordinates GPT-4.1-mini specialists for intake, diagnosis, dispatch planning and policy audit. Supabase secures identity and organization-scoped records; Upstash supplies rate limiting. Reports are saved before agent execution, and unsupported plans stop with an explicit abstention. Staff views are read-only in the MVP; policy-backed work orders require approved property evidence.",
     "categories": [
       "featured",
-      "agentic"
+      "agentic",
+      "microservices"
     ],
     "accent": "cyan",
     "repo": "https://github.com/vishalgwu/tento-agents",
-    "demo": null,
+    "demo": "https://tento-resident-os.vercel.app/",
     "language": "Python",
     "stars": 0,
-    "updated": "2026-09-28",
-    "status": "Foundation built, documentation-first",
+    "updated": "2026-10-25",
+    "status": "Live on Vercel",
     "stack": [
-      "FastAPI",
       "Next.js 15",
-      "Supabase Postgres",
-      "pgvector",
-      "BM25 hybrid",
-      "BAAI/bge-reranker-v2-m3",
+      "FastAPI",
+      "OpenAI GPT-4.1-mini",
+      "LangGraph",
+      "Supabase",
+      "PostgreSQL RLS",
+      "Upstash Redis",
+      "Pydantic",
       "tiktoken",
-      "OpenAPI",
-      "Cloud Run",
-      "Redis"
+      "Vercel",
+      "pytest",
+      "GitHub Actions"
     ],
     "metrics": [
       {
-        "label": "Retrieval fusion",
-        "value": "30 BM25 + 30 dense"
+        "label": "Role-based workspaces",
+        "value": "4"
       },
       {
-        "label": "Rerank output",
-        "value": "top 6"
+        "label": "Specialist LLM stages",
+        "value": "4"
+      },
+      {
+        "label": "Passing Python tests",
+        "value": "339"
       },
       {
         "label": "Context budget",
         "value": "8,000 tokens"
-      },
-      {
-        "label": "Eval queries",
-        "value": "50 human-authored"
       }
     ],
     "challenges": [
-      "Deterministic life-safety screening that never depends on a model deciding whether to notify a person.",
-      "Tenant isolation through row-level security plus an explicit organisation predicate on keyset-paginated queries.",
-      "Extractive compression that keeps verbatim source sentences with offsets, so lease and safety language is never summarised.",
-      "Token-budgeted context assembly with deterministic [C#] citations and [F#] facts."
+      "Built four role-based workspaces with server-verified Supabase JWTs, tenant predicates and transaction-local PostgreSQL RLS.",
+      "Orchestrated typed LangGraph stages with deterministic safety screening, PII redaction, prompt-injection screening and independent policy validation.",
+      "Grounded reasoning through tenant-scoped PostgreSQL full-text retrieval, jurisdiction and effective-date filters, exact citation spans and a bounded context budget.",
+      "Decoupled ticket persistence from bounded agent execution using atomic jobs, idempotency receipts, fenced PostgreSQL leases and retry recovery.",
+      "Validated the platform through 339 passing Python tests, PostgreSQL integration and automated web contract checks; deployed frontend and API to Vercel."
     ],
-    "architecture": "Resident report\n   |\n   v\n[Intake + life-safety screen]  (deterministic)\n   |\n   v\n[Hybrid retrieval] BM25 + pgvector --RRF--> cross-encoder rerank\n   |\n   v\n[Context assembly] [C#] cites | [F#] facts | 8k budget\n   |\n   v\n[Decision proposal] --> [Policy audit] --> [Human approval]\n   |\n   v\nDispatch proposal + immutable audit trace"
+    "architecture": "Resident / staff workspace (Next.js)\n   | same-origin server proxy\n   v\nFastAPI: JWT verification + tenant-scoped RLS\n   | atomic ticket, job and idempotency receipt\n   v\nSupabase PostgreSQL durable job\n   | bounded worker request + fenced lease\n   v\nLangGraph: safety -> intake -> policy retrieval\n   -> diagnosis -> dispatch planning -> policy audit\n   | deterministic validation\n   v\nSaved assessment / explicit abstention\n\nOpenAI GPT-4.1-mini: typed specialist output\nUpstash Redis: rate-limit counters",
+    "thumb": "img/tento-resident-os.png",
+    "secondary": {
+      "label": "Engineering showcase",
+      "url": "https://tento-resident-os.vercel.app/#engineering"
+    }
   },
   {
     "slug": "hr-agentic-rag-copilot",
